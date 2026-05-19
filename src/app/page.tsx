@@ -1,7 +1,11 @@
+﻿import { HeroSection } from "@/components/sections/hero-section";
+import { ServicesSection } from "@/components/sections/services-section";
+
 export default function Home() {
   return (
-    <main>
-      <h1>Clinique Maïmouna Touré</h1>
-    </main>
+    <>
+      <HeroSection />
+      <ServicesSection />
+    </>
   );
 }

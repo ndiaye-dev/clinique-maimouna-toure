@@ -1,23 +1,25 @@
 export const theme = {
   colors: {
-    primary: "#1E3A8A",
-    secondary: "#DC2626",
-    accent: "#F8FAFC",
-    background: "#FFFFFF",
-    text: "#0F172A",
-    muted: "#64748B",
-    border: "#E2E8F0",
-    success: "#16A34A",
+    primary: "#0D6E8A",
+    secondary: "#0B2A3A",
+    accent: "#D2EFF5",
+    background: "#F6FBFD",
+    surface: "#FFFFFF",
+    text: "#10233A",
+    muted: "#57728A",
+    border: "#D7E5EE",
+    success: "#198754",
   },
 
   spacing: {
-    section: "120px",
+    section: "96px",
     container: "1280px",
   },
 
   radius: {
-    card: "24px",
+    card: "20px",
     button: "999px",
+    surface: "28px",
   },
 };
 
