@@ -3,6 +3,7 @@ import { Clock3, MapPin, MessageCircle, Phone } from "lucide-react";
 
 import { clinic } from "@/data/clinic";
 import { footerLinkGroups } from "@/constants/navigation";
+import { BrandMark } from "@/components/layout/brand-mark";
 import { Container } from "@/components/layout/container";
 
 const phoneHref = `tel:${clinic.phone.replaceAll(" ", "")}`;
@@ -13,9 +14,7 @@ export function SiteFooter() {
     <footer className="border-t border-border/70 bg-card/70">
       <Container className="grid gap-10 py-12 md:grid-cols-[1.4fr_1fr_1fr]">
         <div className="space-y-4">
-          <h2 className="font-heading text-xl font-semibold text-foreground">
-            {clinic.name}
-          </h2>
+          <BrandMark showLocation={false} className="w-fit" />
           <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
             {clinic.tagline}
           </p>

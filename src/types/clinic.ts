@@ -31,6 +31,22 @@ export type ClinicService = {
   ctaLabel: string;
 };
 
+export type ClinicCommitment = {
+  title: string;
+  description: string;
+};
+
+export type ClinicDoctor = {
+  name: string;
+  role: string;
+  speciality: string;
+  experience: string;
+  bio: string;
+  languages: string[];
+  availability: string;
+  image?: string;
+};
+
 export type ClinicProfile = {
   name: string;
   tagline: string;
@@ -41,6 +57,7 @@ export type ClinicProfile = {
   whatsapp: string;
   email: string;
   licenseBadge: string;
+  brandLogoImage: string;
   heroBackgroundImage: string;
   openingHours: {
     weekdays: string;
@@ -49,4 +66,10 @@ export type ClinicProfile = {
   stats: ClinicStat[];
   services: ClinicService[];
   trustBadges: string[];
+  presentation: {
+    title: string;
+    description: string;
+    highlights: ClinicCommitment[];
+  };
+  doctors: ClinicDoctor[];
 };
