@@ -21,13 +21,30 @@ export type ServiceIconName =
   | "baby"
   | "scan"
   | "heartPulse"
-  | "users";
+  | "users"
+  | "activity"
+  | "flask"
+  | "syringe";
+
+export type ServiceImageName =
+  | "familyCare"
+  | "clinicExterior"
+  | "generalMedicine"
+  | "gynecology"
+  | "pediatrics"
+  | "ultrasound"
+  | "birth"
+  | "diabetes"
+  | "labTests";
 
 export type ClinicService = {
   title: string;
   slug: string;
   description: string;
   icon: ServiceIconName;
+  image: ServiceImageName;
+  imageAlt: string;
+  imagePosition?: string;
   ctaLabel: string;
 };
 
@@ -47,6 +64,25 @@ export type ClinicDoctor = {
   image?: string;
 };
 
+export type HomepageFeature = {
+  title: string;
+  description: string;
+  icon: "quality" | "team" | "modern" | "human";
+};
+
+export type Testimonial = {
+  quote: string;
+  name: string;
+  role: string;
+};
+
+export type ClinicLocation = {
+  title: string;
+  address: string;
+  landmark: string;
+  mapLabel: string;
+};
+
 export type ClinicProfile = {
   name: string;
   tagline: string;
@@ -59,17 +95,22 @@ export type ClinicProfile = {
   licenseBadge: string;
   brandLogoImage: string;
   heroBackgroundImage: string;
+  clinicExteriorImage: string;
   openingHours: {
     weekdays: string;
     sunday: string;
   };
   stats: ClinicStat[];
   services: ClinicService[];
+  additionalServices: ClinicService[];
   trustBadges: string[];
+  homepageFeatures: HomepageFeature[];
   presentation: {
     title: string;
     description: string;
     highlights: ClinicCommitment[];
   };
+  testimonials: Testimonial[];
+  locationInfo: ClinicLocation;
   doctors: ClinicDoctor[];
 };

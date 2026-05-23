@@ -1,75 +1,81 @@
 "use client";
 
+import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { CheckCircle2, ShieldCheck, Stethoscope } from "lucide-react";
+import { Check, ChevronRight } from "lucide-react";
 
+import clinicBuilding from "@/assets/images/clinic-building.png";
 import { clinic } from "@/data/clinic";
+import { Button } from "@/components/ui/button";
 import { Container } from "@/components/layout/container";
 
-const iconMap = [Stethoscope, ShieldCheck, CheckCircle2] as const;
+const exteriorImages = {
+  "clinic-building.png": clinicBuilding,
+} as const;
 
 export function AboutClinicSection() {
+  const exteriorImage =
+    exteriorImages[
+      clinic.clinicExteriorImage as keyof typeof exteriorImages
+    ] ?? clinicBuilding;
+
   return (
-    <section id="clinique" className="pb-16 pt-4 md:pb-20">
+    <section id="clinique" className="bg-[#f6fbfe] py-16 md:py-20">
       <Container>
-        <div className="overflow-hidden rounded-[30px] border border-border/70 bg-card shadow-[0_24px_70px_-48px_rgba(16,35,58,0.65)]">
+        <div className="grid items-center gap-10 lg:grid-cols-[0.86fr_1.14fr]">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.25 }}
             transition={{ duration: 0.45 }}
-            className="grid gap-8 p-6 sm:p-8 lg:grid-cols-[1.05fr_1fr] lg:p-10"
+            className="space-y-5"
           >
-            <div className="space-y-4">
-              <p className="text-sm font-semibold uppercase tracking-wide text-primary">
-                Présentation Clinique
-              </p>
-              <h2 className="font-heading text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
-                {clinic.presentation.title}
-              </h2>
-              <p className="text-sm leading-relaxed text-muted-foreground md:text-base">
-                {clinic.presentation.description}
-              </p>
-              <div className="rounded-2xl border border-border/70 bg-background p-4">
-                <p className="text-sm font-medium text-foreground">{clinic.district}</p>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  Une prise en charge crédible, humaine et continue pour la famille.
-                </p>
-              </div>
-            </div>
+            <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#dc1f3a]">
+              À propos de nous
+            </p>
+            <h2 className="max-w-md text-3xl font-extrabold leading-tight text-[#063773] md:text-4xl">
+              {clinic.presentation.title}
+            </h2>
+            <p className="max-w-lg text-sm leading-relaxed text-[#4d6681] md:text-base">
+              {clinic.presentation.description}
+            </p>
 
-            <motion.div
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ staggerChildren: 0.08 }}
-              className="grid gap-3"
+            <ul className="space-y-2">
+              {clinic.presentation.highlights.map((item) => (
+                <li key={item.title} className="flex items-center gap-2 text-sm text-[#123e78]">
+                  <Check className="size-4 text-[#064a9b]" />
+                  {item.title}
+                </li>
+              ))}
+            </ul>
+
+            <Button
+              asChild
+              variant="outline"
+              className="h-10 border-[#064a9b]/35 bg-white text-[#064a9b] hover:bg-[#eaf6fd] hover:text-[#063773]"
             >
-              {clinic.presentation.highlights.map((item, index) => {
-                const Icon = iconMap[index] ?? CheckCircle2;
+              <Link href="#contact">
+                En savoir plus sur la clinique
+                <ChevronRight />
+              </Link>
+            </Button>
+          </motion.div>
 
-                return (
-                  <motion.article
-                    key={item.title}
-                    variants={{
-                      hidden: { opacity: 0, y: 14 },
-                      show: { opacity: 1, y: 0 },
-                    }}
-                    className="rounded-2xl border border-border/70 bg-background px-4 py-4 transition-colors hover:border-primary/30"
-                  >
-                    <div className="mb-3 inline-flex size-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                      <Icon className="size-5" />
-                    </div>
-                    <h3 className="font-heading text-xl font-semibold text-foreground">
-                      {item.title}
-                    </h3>
-                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                      {item.description}
-                    </p>
-                  </motion.article>
-                );
-              })}
-            </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.45, delay: 0.08 }}
+            className="relative overflow-hidden rounded-3xl border border-white shadow-[0_26px_70px_-42px_rgba(10,47,89,0.6)]"
+          >
+            <Image
+              src={exteriorImage}
+              alt="Façade moderne de la clinique"
+              className="aspect-[16/8.1] w-full object-cover"
+              sizes="(min-width: 1024px) 58vw, 100vw"
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_62%,rgba(8,47,97,0.18))]" />
           </motion.div>
         </div>
       </Container>

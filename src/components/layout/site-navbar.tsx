@@ -27,7 +27,11 @@ function NavbarLinks({ className = "" }: { className?: string }) {
         <Link
           key={item.label}
           href={item.href}
-          className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+          className={`relative text-sm font-semibold transition-colors hover:text-[#064a9b] ${
+            item.href === "#accueil"
+              ? "text-[#064a9b] after:absolute after:-bottom-2 after:left-0 after:h-0.5 after:w-full after:rounded-full after:bg-[#dc1f3a]"
+              : "text-[#445b73]"
+          }`}
         >
           {item.label}
         </Link>
@@ -40,18 +44,18 @@ export function SiteNavbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-border/70 bg-background/85 backdrop-blur-md">
       <Container className="flex h-20 items-center justify-between gap-4">
-        <BrandMark />
+        <BrandMark compact />
 
         <NavbarLinks className="hidden items-center gap-6 lg:flex" />
 
         <div className="hidden items-center gap-2 md:flex">
-          <Button asChild variant="outline" size="sm">
+          <Button asChild variant="outline" size="sm" className="border-[#064a9b]/35 text-[#064a9b] hover:bg-[#eaf6fd] hover:text-[#063773]">
             <Link href={phoneHref}>
               <Phone />
               Appeler
             </Link>
           </Button>
-          <Button asChild size="sm" className="shadow-sm">
+          <Button asChild size="sm" className="bg-[#064a9b] text-white shadow-sm hover:bg-[#053f84]">
             <Link href={whatsappHref} target="_blank" rel="noreferrer">
               <MessageCircle />
               WhatsApp
@@ -82,7 +86,7 @@ export function SiteNavbar() {
               <div className="flex flex-col gap-6 p-5">
                 <NavbarLinks className="flex flex-col gap-4" />
                 <div className="grid gap-2">
-                  <Button asChild>
+                  <Button asChild className="bg-[#064a9b] text-white hover:bg-[#053f84]">
                     <Link href={whatsappHref} target="_blank" rel="noreferrer">
                       <MessageCircle />
                       Contacter sur WhatsApp

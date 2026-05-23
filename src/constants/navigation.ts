@@ -1,9 +1,9 @@
-import type { FooterLinkGroup, NavigationItem } from "@/types/clinic";
+﻿import type { FooterLinkGroup, NavigationItem } from "@/types/clinic";
 
 export const primaryNavigation: NavigationItem[] = [
   { label: "Accueil", href: "#accueil" },
+  { label: "La clinique", href: "#clinique" },
   { label: "Services", href: "#services" },
-  { label: "Clinique", href: "#clinique" },
   { label: "Médecins", href: "#medecins" },
   { label: "Témoignages", href: "#temoignages" },
   { label: "Galerie", href: "#galerie" },
@@ -19,6 +19,7 @@ export const footerLinkGroups: FooterLinkGroup[] = [
   {
     title: "Pages à Venir",
     links: [
+      { label: "Clinique", href: "#clinique" },
       { label: "Services", href: "#services" },
       { label: "Médecins", href: "#medecins" },
       { label: "Galerie", href: "#galerie" },
@@ -30,16 +31,16 @@ export const footerLinkGroups: FooterLinkGroup[] = [
 
 export const homepageSections = [
   {
-    id: "services",
-    title: "Services",
-    description:
-      "Présentation structurée des services prioritaires de la clinique (gynécologie, pédiatrie, échographie, urgences).",
-  },
-  {
     id: "clinique",
     title: "Présentation de la Clinique",
     description:
       "Bloc institutionnel pour valoriser l'expertise, l'approche patient et les standards qualité de la clinique.",
+  },
+  {
+    id: "services",
+    title: "Services",
+    description:
+      "Présentation structurée des services prioritaires de la clinique (gynécologie, pédiatrie, échographie, urgences).",
   },
   {
     id: "medecins",
