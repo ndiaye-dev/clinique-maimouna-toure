@@ -33,7 +33,7 @@ export function BrandMark({
     <Link href="/" className={cn("group flex min-w-0 items-center gap-3", className)}>
       <div className={cn(
         "relative shrink-0",
-        dark && "rounded-xl bg-white/15 px-3 py-1.5 backdrop-blur-sm ring-1 ring-white/10"
+        dark && "rounded-xl bg-white px-3 py-1.5 shadow-[0_2px_16px_-4px_rgba(0,0,0,0.25)]"
       )}>
         <Image
           src={displayLogo}
@@ -46,11 +46,17 @@ export function BrandMark({
       </div>
       {!compact ? (
         <div className="min-w-0">
-          <p className="truncate font-heading text-base font-semibold tracking-tight text-foreground sm:text-lg">
+          <p className={cn(
+            "truncate font-heading text-base font-semibold tracking-tight sm:text-lg",
+            dark ? "text-white" : "text-foreground"
+          )}>
             {clinic.name}
           </p>
           {showLocation ? (
-            <p className="truncate text-xs text-muted-foreground">{clinic.location}</p>
+            <p className={cn(
+              "truncate text-xs",
+              dark ? "text-white/60" : "text-muted-foreground"
+            )}>{clinic.location}</p>
           ) : null}
         </div>
       ) : null}
