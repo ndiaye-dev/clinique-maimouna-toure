@@ -2,22 +2,28 @@
 
 export const clinic: ClinicProfile = {
   name: "Clinique Maïmouna Touré",
+  abbreviation: "C.M.T",
   tagline: "Soins médicaux de qualité pour toute la famille",
   heroDescription:
     "Consultations, gynécologie, pédiatrie, échographie, accouchement et suivi continu dans un cadre rassurant.",
-  location: "Keur Massar — Dakar",
+  location: "Keur Massar MTO 11 — Dakar",
   district: "Keur Massar, Dakar, Sénégal",
-  phone: "+221 78 797 89 30",
+  phone: "+221 33 837 89 45",
+  phoneMobile: "+221 78 797 89 30",
   whatsapp: "221787978930",
-  email: "contact@cliniquemaimounatoure.com",
-  licenseBadge: "Clinique agréée",
+  email: "cliniquemaimounatoure@gmail.com",
+  licenseBadge: "Autorisation N°023637 MSAS/DGES/DEPrS/DRC",
   brandLogoImage: "logo-clinique.png",
   heroBackgroundImage: "clinic-hero-family.png",
-  clinicExteriorImage: "clinic-building.png",
+  clinicExteriorImage: "clinique-maimouna-toure-facade.png",
   openingHours: {
     weekdays: "Lun–Sam : 8h–20h",
     sunday: "Dimanche : Urgences",
   },
+
+
+
+  
   stats: [
     {
       value: "12 000+",
@@ -222,47 +228,22 @@ export const clinic: ClinicProfile = {
       },
     ],
   },
-  testimonials: [
-    {
-      quote:
-        "Une clinique propre, un personnel accueillant et des médecins à l'écoute. Je recommande !",
-      name: "Fatou S.",
-      role: "Patiente",
-    },
-  ],
+  testimonials: [],
   locationInfo: {
     title: "Keur Massar - Dakar, Sénégal",
-    address: "Unité 9, Keur Massar, Dakar",
-    landmark: "À côté de la Pharmacie Keur Massar",
-    mapLabel: "Keur Massar",
+    address: "Keur Massar MTO 11, Dakar",
+    landmark: "Près de la mosquée de Keur Massar",
+    mapLabel: "Keur Massar MTO 11",
   },
   doctors: [
     {
-      name: "Dr. Aïssatou Ndiaye",
-      role: "Médecin référent",
-      speciality: "Gynécologie & Obstétrique",
-      experience: "12 ans d'expérience",
-      bio: "Spécialiste du suivi de la femme, de la grossesse et de la prise en charge obstétricale sécurisée.",
+      name: "Dr. Fall",
+      role: "Responsable de la clinique",
+      speciality: "Médecine générale",
+      experience: "",
+      bio: "Responsable et médecin référent de la Clinique Maïmouna Touré, engagé pour des soins de qualité accessibles à toute la famille.",
       languages: ["Français", "Wolof"],
-      availability: "Consultations: Lun, Mar, Jeu, Sam",
-    },
-    {
-      name: "Dr. Mamadou Faye",
-      role: "Médecin spécialiste",
-      speciality: "Pédiatrie",
-      experience: "10 ans d'expérience",
-      bio: "Prise en charge des nourrissons, enfants et adolescents avec une approche centrée famille.",
-      languages: ["Français", "Wolof", "Anglais"],
-      availability: "Consultations: Lun à Ven",
-    },
-    {
-      name: "Dr. Khady Diop",
-      role: "Médecin généraliste",
-      speciality: "Consultation Générale",
-      experience: "8 ans d'expérience",
-      bio: "Diagnostic initial, prévention et orientation spécialisée selon les besoins cliniques du patient.",
-      languages: ["Français", "Wolof"],
-      availability: "Consultations: Mar à Sam",
+      availability: "",
     },
   ],
 };

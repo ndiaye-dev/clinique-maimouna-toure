@@ -1,16 +1,14 @@
 "use client";
 
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   BadgeCheck,
   CalendarDays,
-  CheckCircle2,
   Clock3,
-  HeartPulse,
   MapPin,
-  Medal,
   MessageCircle,
   Phone,
   Smile,
@@ -18,155 +16,249 @@ import {
 } from "lucide-react";
 
 import heroFamilyImage from "@/assets/images/clinic-hero-family.png";
-import heroPlaceholder from "@/assets/images/clinic-hero-placeholder.svg";
+import servicesBannerImg from "@/assets/images/banners/services-banner.jpg";
+import galerieBannerImg from "@/assets/images/banners/galerie-banner.jpg";
+import facadeImg from "@/assets/images/gallery/facade.jpg";
+import infirmierPatientImg from "@/assets/images/slider/infirmiere-patient.jpg";
 import { Container } from "@/components/layout/container";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { clinic } from "@/data/clinic";
 
 const phoneHref = `tel:${clinic.phone.replaceAll(" ", "")}`;
 const whatsappHref = `https://wa.me/${clinic.whatsapp}`;
 
-const heroBackgrounds = {
-  "clinic-hero-placeholder.svg": heroPlaceholder,
-  "clinic-hero-family.png": heroFamilyImage,
-} as const;
-
-const quickProofs = [
+const slides = [
   {
-    label: "Consultation rapide",
-    helper: "Prise en charge efficace",
-    icon: Clock3,
+    src: heroFamilyImage,
+    alt: "Consultation familiale à la Clinique Maïmouna Touré",
+    caption: "Soins familiaux bienveillants",
+    position: "50% 18%",
   },
   {
-    label: "Personnel qualifié",
-    helper: "Équipe médicale experte",
-    icon: Users,
+    src: servicesBannerImg,
+    alt: "Médecin spécialiste en consultation",
+    caption: "Expertise médicale confirmée",
+    position: "50% 40%",
   },
   {
-    label: "Soins familiaux",
-    helper: "Pour tous, à tout âge",
-    icon: HeartPulse,
+    src: galerieBannerImg,
+    alt: "Salle moderne et bien équipée",
+    caption: "Installations de qualité",
+    position: "50% 50%",
   },
-] as const;
-
-const statIcons = [Users, Medal, Smile, CalendarDays] as const;
+  {
+    src: infirmierPatientImg,
+    alt: "Infirmière prodiguant des soins à un patient",
+    caption: "Soins attentionnés 24h/24",
+    position: "50% 35%",
+  },
+  {
+    src: facadeImg,
+    alt: "Façade de la Clinique Maïmouna Touré",
+    caption: "Votre clinique de confiance",
+    position: "50% 40%",
+  },
+];
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 18 },
-  show: { opacity: 1, y: 0 },
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.48, ease: "easeOut" } },
+};
+const stagger = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.09 } },
 };
 
-export function HeroSection() {
-  const backgroundImage =
-    heroBackgrounds[
-      clinic.heroBackgroundImage as keyof typeof heroBackgrounds
-    ] ?? heroPlaceholder;
+const stats = [
+  { icon: Users,        value: "12 000+", label: "Patients accompagnés" },
+  { icon: CalendarDays, value: "15+",     label: "Années d'expérience" },
+  { icon: Clock3,       value: "6j/7",    label: "Disponibilité" },
+  { icon: Smile,        value: "95 %",    label: "Satisfaction" },
+];
 
+function HeroSlider({ className }: { className?: string }) {
+  const [current, setCurrent] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  const next = useCallback(() => {
+    setCurrent((c) => (c + 1) % slides.length);
+  }, []);
+
+  useEffect(() => {
+    if (paused) return;
+    const id = setInterval(next, 5000);
+    return () => clearInterval(id);
+  }, [paused, next]);
+
+  const slide = slides[current];
+
+  return (
+    <div
+      className={className}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      <div className="relative overflow-hidden rounded-2xl shadow-[0_24px_64px_-16px_rgba(26,59,156,0.16)]">
+        {/* Images en crossfade */}
+        <div className="relative aspect-[4/3] w-full bg-[#EEF3FC]">
+          <AnimatePresence mode="sync">
+            <motion.div
+              key={current}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.7, ease: "easeInOut" }}
+              className="absolute inset-0"
+            >
+              <Image
+                src={slide.src}
+                alt={slide.alt}
+                fill
+                priority={current === 0}
+                className="object-cover [filter:contrast(1.05)_saturate(1.06)]"
+                style={{ objectPosition: slide.position }}
+                sizes="(min-width: 1024px) 50vw, 100vw"
+              />
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Fondus */}
+          <div className="absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-white/22 to-transparent pointer-events-none" />
+          <div className="absolute inset-x-0 top-0 h-8 bg-gradient-to-b from-white/18 to-transparent pointer-events-none" />
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0D1B4B]/40 to-transparent pointer-events-none" />
+
+          {/* Badge Clinique agréée */}
+          <div className="absolute right-4 top-4 flex items-center gap-2.5 rounded-xl bg-[#1A3B9C] px-4 py-2.5 shadow-[0_6px_20px_-4px_rgba(26,59,156,0.48)]">
+            <BadgeCheck className="size-3.5 shrink-0 text-white" />
+            <div>
+              <p className="text-[0.65rem] font-black uppercase tracking-wide leading-none text-white">Clinique agréé</p>
+              <p className="mt-[3px] text-[0.54rem] leading-none text-white/60">{clinic.abbreviation}</p>
+            </div>
+          </div>
+
+          {/* Carte Horaires */}
+          <div className="absolute bottom-[14%] left-[8%] w-36 rounded-xl border border-white/12 bg-white/90 px-3 py-2.5 shadow-[0_8px_28px_-6px_rgba(13,27,75,0.20)] backdrop-blur-md">
+            <p className="flex items-center gap-1.5 text-[0.67rem] font-black text-[#1A3B9C]">
+              <Clock3 className="size-3" />
+              Horaires
+            </p>
+            <p className="mt-1 text-[0.59rem] leading-[1.55] text-[#5A6E8C]">{clinic.openingHours.weekdays}</p>
+            <p className="mt-0.5 text-[0.59rem] font-bold text-[#CC1B1B]">{clinic.openingHours.sunday}</p>
+          </div>
+
+          {/* Caption slide */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`caption-${current}`}
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              transition={{ duration: 0.38 }}
+              className="absolute bottom-3 right-4 rounded-full bg-white/15 px-3 py-1 backdrop-blur-sm"
+            >
+              <span className="text-[0.6rem] font-semibold text-white/90">
+                {slide.caption}
+              </span>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Dots de navigation */}
+        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5">
+          {slides.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrent(i)}
+              className="group relative"
+              aria-label={`Slide ${i + 1}`}
+            >
+              <span
+                className={[
+                  "block rounded-full transition-all duration-300",
+                  i === current
+                    ? "h-2 w-6 bg-white"
+                    : "h-1.5 w-1.5 bg-white/45 hover:bg-white/70",
+                ].join(" ")}
+              />
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function HeroSection() {
   return (
     <section
       id="accueil"
-      className="relative isolate overflow-x-hidden bg-[#eef8fb] pb-0 pt-0 lg:pb-2"
+      className="relative isolate overflow-hidden bg-white"
     >
+      {/* ── Fond ambiance ── */}
       <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_13%_18%,rgba(216,244,253,0.92),transparent_34%),radial-gradient(circle_at_78%_20%,rgba(0,76,154,0.18),transparent_30%),radial-gradient(circle_at_48%_92%,rgba(255,255,255,0.96),transparent_36%),linear-gradient(105deg,#fbfdff_0%,#f4fbfe_38%,#dff4fb_100%)]" />
-        <div className="absolute -left-24 top-20 size-80 rounded-full bg-[#dff6ff]/80 blur-3xl" />
-        <div className="absolute right-[14%] top-10 size-72 rounded-full bg-[#5bb8e5]/16 blur-3xl" />
-        <div className="absolute bottom-10 left-[42%] size-64 rounded-full bg-white/70 blur-3xl" />
-        <div className="absolute inset-y-0 -left-[5%] right-0 hidden lg:block">
-          <Image
-            src={backgroundImage}
-            alt="Consultation familiale à la Clinique Maïmouna Touré"
-            fill
-            priority
-            sizes="100vw"
-            className="scale-[0.96] object-cover object-[59%_39%]"
-          />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_40%_48%,rgba(255,255,255,0.12),transparent_22%),linear-gradient(90deg,#fbfdff_0%,rgba(248,253,255,0.92)_18%,rgba(246,252,254,0.4)_32%,rgba(239,249,253,0.07)_45%,rgba(0,76,154,0.03)_100%)]" />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.05)_0%,rgba(239,248,251,0.02)_48%,rgba(239,248,251,0.48)_100%)]" />
-        </div>
-        <div className="absolute inset-0 opacity-[0.045] [background-image:linear-gradient(rgba(13,74,136,0.18)_1px,transparent_1px),linear-gradient(90deg,rgba(13,74,136,0.14)_1px,transparent_1px)] [background-size:72px_72px] [mask-image:radial-gradient(circle_at_14%_56%,black,transparent_54%)]" />
-        <svg
-          aria-hidden="true"
-          className="absolute bottom-4 left-0 hidden h-44 w-[36rem] text-[#9ccfe8] opacity-18 lg:block"
-          fill="none"
-          viewBox="0 0 560 190"
-        >
-          {Array.from({ length: 13 }).map((_, index) => (
-            <path
-              key={index}
-              d={`M -48 ${188 - index * 5} C 92 ${150 - index * 6}, 208 ${
-                122 - index * 5
-              }, 560 ${116 - index * 4}`}
-              stroke="currentColor"
-              strokeWidth="1"
-            />
-          ))}
-        </svg>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_72%_80%_at_100%_50%,#EEF3FC_0%,transparent_65%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_42%_32%_at_0%_100%,#EEF3FC_0%,transparent_60%)]" />
+        <div className="absolute inset-0 opacity-[0.013] [background-image:linear-gradient(#1A3B9C_1px,transparent_1px),linear-gradient(90deg,#1A3B9C_1px,transparent_1px)] [background-size:56px_56px]" />
       </div>
 
-      <Container className="max-w-none px-4 sm:px-6 lg:px-[4.3vw]">
-        <motion.div
-          initial="hidden"
-          animate="show"
-          variants={{
-            hidden: {},
-            show: { transition: { staggerChildren: 0.07 } },
-          }}
-          className="relative pt-6 md:pt-7 lg:min-h-[565px] lg:pt-7"
-        >
+      <Container className="max-w-none px-4 sm:px-6 lg:px-[4vw]">
+        <div className="grid items-end gap-8 py-10 lg:grid-cols-[1fr_1fr] lg:gap-7 lg:py-12">
+
+          {/* ══ COLONNE GAUCHE ══ */}
           <motion.div
-            variants={fadeUp}
-            className="mb-6 overflow-hidden rounded-[24px] border border-[#0d4a88]/10 bg-white shadow-[0_24px_60px_-48px_rgba(10,47,89,0.75)] md:mb-7 lg:hidden"
+            initial="hidden"
+            animate="show"
+            variants={stagger}
+            className="flex flex-col lg:pl-3"
           >
-            <Image
-              src={backgroundImage}
-              alt="Consultation familiale à la Clinique Maïmouna Touré"
-              priority
-              className="aspect-[16/9] w-full object-cover object-[66%_48%]"
-            />
-          </motion.div>
-
-          <div className="relative z-10 w-full max-w-[22rem] sm:max-w-[45rem]">
-            <motion.div
-              variants={fadeUp}
-              className="flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap sm:items-center"
-            >
-              <Badge className="h-10 gap-2 rounded-full border border-[#064a9b] bg-[#064a9b] px-5 text-sm font-bold uppercase text-white shadow-[0_16px_30px_-20px_rgba(6,74,155,0.9)] hover:bg-[#053f84]">
-                <BadgeCheck className="size-4" />
-                Clinique agréée
-              </Badge>
-
-              <span className="inline-flex h-10 max-w-full items-center gap-2 rounded-full border border-[#064a9b]/10 bg-white/90 px-4 text-sm font-bold text-[#064a9b] shadow-[0_12px_30px_-28px_rgba(10,47,89,0.68)] backdrop-blur-md">
-                <MapPin className="size-4 text-[#1f88cf]" />
-                <span className="truncate">{clinic.location}</span>
+            {/* Pastilles */}
+            <motion.div variants={fadeUp} className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-[#1A3B9C]/18 bg-[#EEF3FC] px-3.5 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.12em] text-[#1A3B9C]">
+                <BadgeCheck className="size-3 text-[#CC1B1B]" />
+                Clinique agréé &mdash; {clinic.abbreviation}
+              </span>
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-[#E8EEF8] bg-transparent px-3 py-1.5 text-[0.65rem] font-medium text-[#7A8CA8]">
+                <MapPin className="size-2.5 text-[#1A3B9C]/60" />
+                {clinic.location}
               </span>
             </motion.div>
 
-            <motion.div variants={fadeUp} className="mt-5 space-y-3 md:mt-6 md:space-y-4">
-              <h1 className="max-w-full font-sans text-[2.25rem] font-black leading-[1.03] text-[#063773] sm:text-5xl md:text-[3.25rem] lg:text-[3.15rem] xl:text-[3.55rem]">
-                Des soins <span className="block text-[#dc1f3a] sm:inline">d&apos;exception,</span>
-                <br className="hidden sm:block" />
-                proches de vous.
-              </h1>
-
-              <p className="max-w-full text-[0.95rem] leading-7 text-[#244d75] sm:text-base md:max-w-[39rem] md:text-lg">
-                {clinic.name} à Keur Massar - Dakar, des soins médicaux de qualité
-                pour toute la famille dans un cadre moderne et rassurant.
-              </p>
+            {/* Séparateur décoratif */}
+            <motion.div variants={fadeUp} className="mt-4 flex items-center gap-2">
+              <span className="h-[2px] w-8 rounded-full bg-[#CC1B1B]" />
+              <span className="h-[2px] w-3 rounded-full bg-[#1A3B9C]/25" />
             </motion.div>
 
-            <motion.div
+            {/* Titre */}
+            <motion.h1
               variants={fadeUp}
-              className="mt-5 flex flex-col gap-3 sm:flex-row md:mt-7"
+              className="mt-3 font-sans text-[2.6rem] font-black leading-[1.06] tracking-[-0.01em] text-[#0D1B4B] sm:text-[2.9rem] lg:text-[3.6rem] xl:text-[3.8rem]"
             >
+              Des soins{" "}
+              <em className="not-italic text-[#1A3B9C] [font-style:italic]">d&apos;exception</em>,{" "}
+              <br className="hidden sm:block" />
+              proches de vous.
+            </motion.h1>
+
+            {/* Description */}
+            <motion.p
+              variants={fadeUp}
+              className="mt-5 max-w-[29rem] text-[0.97rem] leading-[1.82] text-[#5A6E8C]"
+            >
+              Médecine générale, gynécologie, pédiatrie,
+              échographie, accouchement et suivi médical dans un cadre
+              professionnel et rassurant.
+            </motion.p>
+
+            {/* CTA */}
+            <motion.div variants={fadeUp} className="mt-7 flex flex-wrap gap-3">
               <Button
                 asChild
                 size="lg"
-                className="h-[2.56rem] w-full justify-center rounded-xl border border-[#064a9b] bg-[#064a9b] px-3.5 text-[0.9rem] font-bold text-white shadow-[0_18px_34px_-20px_rgba(6,74,155,0.95)] transition-all hover:-translate-y-0.5 hover:bg-[#053f84] sm:w-auto"
+                className="h-12 gap-2 rounded-full bg-[#1A3B9C] px-8 text-sm font-semibold text-white shadow-[0_8px_32px_-8px_rgba(26,59,156,0.45)] transition-all hover:-translate-y-0.5 hover:bg-[#0F2470] hover:shadow-[0_12px_36px_-8px_rgba(26,59,156,0.55)]"
               >
                 <Link href={whatsappHref} target="_blank" rel="noreferrer">
-                  <MessageCircle className="size-5" />
+                  <MessageCircle className="size-4.5" />
                   Prendre rendez-vous
                 </Link>
               </Button>
@@ -175,99 +267,65 @@ export function HeroSection() {
                 asChild
                 variant="outline"
                 size="lg"
-                className="h-[3.15rem] w-full justify-center rounded-xl border-[#064a9b]/35 bg-white/88 px-5 text-base font-bold text-[#064a9b] shadow-[0_12px_28px_-24px_rgba(10,47,89,0.72)] backdrop-blur-md transition-all hover:-translate-y-0.5 hover:bg-white hover:text-[#063773] sm:w-auto"
+                className="h-12 gap-2 rounded-full border-[#1A3B9C]/25 bg-white/80 px-7 text-sm font-semibold text-[#1A3B9C] transition-all hover:-translate-y-0.5 hover:border-[#1A3B9C] hover:bg-[#1A3B9C] hover:text-white"
               >
                 <Link href={phoneHref}>
-                  <Phone className="size-5" />
+                  <Phone className="size-4" />
                   Appeler
                 </Link>
               </Button>
             </motion.div>
 
-            <motion.ul
+            {/* Bandeau stats */}
+            <motion.div
               variants={fadeUp}
-              className="mt-5 grid max-w-[34rem] gap-2 sm:grid-cols-3 md:mt-6 md:gap-1"
+              className="mt-10 overflow-hidden rounded-2xl border border-[#E8EEF8] bg-white shadow-[0_4px_24px_-6px_rgba(26,59,156,0.09)]"
             >
-              {quickProofs.map((item) => {
-                const Icon = item.icon;
-
-                return (
-                  <li
-                    key={item.label}
-                    className="grid grid-cols-[2.35rem_1fr] items-center gap-1"
+              <div className="h-[3px] w-full bg-gradient-to-r from-[#CC1B1B] via-[#2D52B8] to-[#1A3B9C]" />
+              <div className="grid grid-cols-4">
+                {stats.map(({ icon: Icon, value, label }, i) => (
+                  <div
+                    key={label}
+                    className={[
+                      "group flex flex-col items-center gap-1.5 px-3 py-4 text-center transition-colors duration-200 hover:bg-[#F8FAFF]",
+                      i < stats.length - 1 ? "border-r border-[#EEF2FA]" : "",
+                    ].join(" ")}
                   >
-                    <span className="flex size-11 items-center justify-center rounded-full border border-[#064a9b]/22 bg-white/88 text-[#064a9b] shadow-[0_16px_30px_-24px_rgba(10,47,89,0.8)] backdrop-blur-md">
-                      <Icon className="size-5" />
+                    <span className="flex size-7 items-center justify-center rounded-lg bg-[#EEF3FC] text-[#1A3B9C] transition-colors duration-200 group-hover:bg-white">
+                      <Icon className="size-3.5" />
                     </span>
-                    <span>
-                      <span className="block text-sm font-black text-[#063773]">
-                        {item.label}
-                      </span>
-                      <span className="block text-xs text-[#5d7898]">
-                        {item.helper}
-                      </span>
-                    </span>
-                  </li>
-                );
-              })}
-            </motion.ul>
-          </div>
+                    <p className="text-[1.35rem] font-black leading-none tracking-tight text-[#1A3B9C]">{value}</p>
+                    <p className="text-[0.6rem] font-medium leading-tight text-[#7A8CA8]">{label}</p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
 
-          <div className="pointer-events-none absolute inset-y-0 -right-[1.5vw] z-10 hidden w-[16rem] lg:block xl:-right-[0.5vw]">
-            <div
-              className="absolute right-0 top-[29%] w-[12.8rem] rounded-2xl border border-white/80 bg-white p-3.5 text-[#064a9b] shadow-[0_14px_30px_-25px_rgba(10,47,89,0.5)]"
-            >
-              <p className="inline-flex items-center gap-2 text-base font-black">
-                <Clock3 className="size-4.5 text-[#1d4ea5]" />
-                Horaires
-              </p>
-              <p className="mt-2.5 text-xs text-[#4b6686]">
-                {clinic.openingHours.weekdays}
-              </p>
-              <p className="text-xs font-black text-[#dc1f3a]">
-                {clinic.openingHours.sunday}
-              </p>
-            </div>
+          {/* ══ COLONNE DROITE — Slider desktop ══ */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.65, delay: 0.1, ease: "easeOut" }}
+            className="hidden lg:-mr-[calc(4vw-20px)] lg:block"
+          >
+            <HeroSlider />
+          </motion.div>
 
-            <div
-              className="absolute -right-2 top-[50%] w-[13.8rem] rounded-2xl bg-[#064a9b] p-3 text-white shadow-[0_14px_30px_-24px_rgba(8,50,96,0.68)]"
-            >
-              <p className="inline-flex items-center gap-2 text-sm font-black">
-                <Clock3 className="size-4.5" />
-                Disponible 6j/7
-              </p>
-              <p className="mt-1 text-xs text-white/82">
-                Consultations et suivi réguliers
-              </p>
-            </div>
-          </div>
+          {/* ══ Slider mobile ══ */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.48, delay: 0.18 }}
+            className="lg:hidden"
+          >
+            <HeroSlider />
+          </motion.div>
 
-          <div className="relative z-20 mx-auto mt-4 grid w-full max-w-[54rem] grid-cols-2 gap-2 rounded-2xl border border-[#064a9b]/10 bg-white px-3.5 py-2 shadow-[0_22px_50px_-34px_rgba(10,47,89,0.55)] md:mt-5 lg:absolute lg:bottom-14 lg:left-0 lg:mt-0 lg:translate-y-[24%] lg:grid-cols-4">
-            {clinic.stats.map((stat, index) => {
-              const Icon = statIcons[index] ?? CheckCircle2;
-
-              return (
-                <div
-                  key={stat.label}
-                  className="grid grid-cols-[1.85rem_1fr] items-center gap-1.5"
-                >
-                  <span className="flex size-8 items-center justify-center rounded-lg bg-[#eaf6fd] text-[#064a9b]">
-                    <Icon className="size-4" />
-                  </span>
-                  <span>
-                    <span className="block text-[1.7rem] font-black leading-none text-[#064a9b]">
-                      {stat.value}
-                    </span>
-                    <span className="mt-0.5 block text-[10px] leading-[1.15] text-[#244d75]">
-                      {stat.label}
-                    </span>
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-        </motion.div>
+        </div>
       </Container>
+
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#F4F7FB]/55 to-transparent" />
     </section>
   );
 }

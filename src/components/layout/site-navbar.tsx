@@ -27,10 +27,10 @@ function NavbarLinks({ className = "" }: { className?: string }) {
         <Link
           key={item.label}
           href={item.href}
-          className={`relative text-sm font-semibold transition-colors hover:text-[#064a9b] ${
+          className={`relative text-sm font-semibold transition-colors hover:text-[#1A3B9C] ${
             item.href === "#accueil"
-              ? "text-[#064a9b] after:absolute after:-bottom-2 after:left-0 after:h-0.5 after:w-full after:rounded-full after:bg-[#dc1f3a]"
-              : "text-[#445b73]"
+              ? "text-[#1A3B9C] after:absolute after:-bottom-2 after:left-0 after:h-0.5 after:w-full after:rounded-full after:bg-[#CC1B1B]"
+              : "text-[#5A6E8C]"
           }`}
         >
           {item.label}
@@ -42,25 +42,29 @@ function NavbarLinks({ className = "" }: { className?: string }) {
 
 export function SiteNavbar() {
   return (
-    <header className="sticky top-0 z-50 border-b border-border/70 bg-background/85 backdrop-blur-md">
-      <Container className="flex h-20 items-center justify-between gap-4">
+    <header className="sticky top-0 z-50 border-b border-[#D5E2F4]/80 bg-white/90 backdrop-blur-md">
+      <Container className="flex h-18 items-center justify-between gap-4">
         <BrandMark compact />
 
-        <NavbarLinks className="hidden items-center gap-6 lg:flex" />
+        <NavbarLinks className="hidden items-center gap-7 lg:flex" />
 
-        <div className="hidden items-center gap-2 md:flex">
-          <Button asChild variant="outline" size="sm" className="border-[#064a9b]/35 text-[#064a9b] hover:bg-[#eaf6fd] hover:text-[#063773]">
-            <Link href={phoneHref}>
-              <Phone />
-              Appeler
-            </Link>
-          </Button>
-          <Button asChild size="sm" className="bg-[#064a9b] text-white shadow-sm hover:bg-[#053f84]">
-            <Link href={whatsappHref} target="_blank" rel="noreferrer">
-              <MessageCircle />
-              WhatsApp
-            </Link>
-          </Button>
+        <div className="hidden items-center gap-2.5 md:flex">
+          <Link
+            href={phoneHref}
+            className="inline-flex h-9 items-center gap-2 rounded-full border border-[#1A3B9C]/25 bg-white px-4 text-xs font-semibold text-[#1A3B9C] shadow-sm transition-all hover:border-[#1A3B9C]/50 hover:bg-[#EEF3FC] hover:shadow-md"
+          >
+            <Phone className="size-3.5" />
+            Appeler
+          </Link>
+          <Link
+            href={whatsappHref}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex h-9 items-center gap-2 rounded-full bg-[#1A3B9C] px-5 text-xs font-semibold text-white shadow-[0_4px_14px_-4px_rgba(26,59,156,0.50)] transition-all hover:-translate-y-0.5 hover:bg-[#0F2470] hover:shadow-[0_6px_20px_-4px_rgba(26,59,156,0.55)]"
+          >
+            <MessageCircle className="size-3.5" />
+            WhatsApp
+          </Link>
         </div>
 
         <div className="flex items-center gap-2 md:hidden">
@@ -77,7 +81,7 @@ export function SiteNavbar() {
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[88vw] max-w-sm p-0">
-              <SheetHeader className="border-b border-border/80">
+              <SheetHeader className="border-b border-[#D5E2F4]">
                 <SheetTitle className="sr-only">{clinic.name}</SheetTitle>
                 <SheetDescription className="sr-only">{clinic.location}</SheetDescription>
                 <BrandMark showLocation={false} />
@@ -86,7 +90,10 @@ export function SiteNavbar() {
               <div className="flex flex-col gap-6 p-5">
                 <NavbarLinks className="flex flex-col gap-4" />
                 <div className="grid gap-2">
-                  <Button asChild className="bg-[#064a9b] text-white hover:bg-[#053f84]">
+                  <Button
+                    asChild
+                    className="bg-[#1A3B9C] text-white hover:bg-[#0F2470]"
+                  >
                     <Link href={whatsappHref} target="_blank" rel="noreferrer">
                       <MessageCircle />
                       Contacter sur WhatsApp

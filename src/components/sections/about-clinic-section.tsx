@@ -1,18 +1,22 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Check, ChevronRight } from "lucide-react";
+import { BadgeCheck, HeartHandshake, Lock, ShieldCheck, Stethoscope } from "lucide-react";
 
 import clinicBuilding from "@/assets/images/clinic-building.png";
+import clinicFacade from "@/assets/images/clinique-maimouna-toure-facade.png";
 import { clinic } from "@/data/clinic";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/layout/container";
 
 const exteriorImages = {
   "clinic-building.png": clinicBuilding,
+  "clinique-maimouna-toure-facade.png": clinicFacade,
 } as const;
+
+const highlightIcons = [HeartHandshake, ShieldCheck, Stethoscope, Lock];
 
 export function AboutClinicSection() {
   const exteriorImage =
@@ -21,62 +25,86 @@ export function AboutClinicSection() {
     ] ?? clinicBuilding;
 
   return (
-    <section id="clinique" className="bg-[#f6fbfe] py-16 md:py-20">
+    <section id="clinique" className="bg-white py-12 md:py-16">
       <Container>
-        <div className="grid items-center gap-10 lg:grid-cols-[0.86fr_1.14fr]">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.45 }}
-            className="space-y-5"
-          >
-            <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#dc1f3a]">
-              À propos de nous
-            </p>
-            <h2 className="max-w-md text-3xl font-extrabold leading-tight text-[#063773] md:text-4xl">
-              {clinic.presentation.title}
-            </h2>
-            <p className="max-w-lg text-sm leading-relaxed text-[#4d6681] md:text-base">
-              {clinic.presentation.description}
-            </p>
+        <div className="grid items-center gap-12 lg:grid-cols-2">
 
-            <ul className="space-y-2">
-              {clinic.presentation.highlights.map((item) => (
-                <li key={item.title} className="flex items-center gap-2 text-sm text-[#123e78]">
-                  <Check className="size-4 text-[#064a9b]" />
-                  {item.title}
-                </li>
-              ))}
+          {/* Left — image */}
+          <motion.div
+            initial={{ opacity: 0, x: -32 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+            className="relative order-2 lg:order-1"
+          >
+            <div className="absolute -left-4 -top-4 h-full w-full rounded-3xl bg-[#EEF3FC]" />
+
+            <div className="relative flex min-h-[320px] items-center justify-center overflow-hidden rounded-3xl border border-[#D5E2F4] bg-white p-3 shadow-[0_24px_60px_-20px_rgba(26,59,156,0.18)] sm:min-h-[400px] md:min-h-[460px]">
+              <Image
+                src={exteriorImage}
+                alt="Facade de la Clinique Maimouna Toure"
+                className="h-full w-full object-contain object-center"
+                sizes="(min-width: 1024px) 50vw, 100vw"
+              />
+              <div className="absolute bottom-4 left-4 right-4 flex items-center gap-2.5 rounded-xl border border-[#D5E2F4] bg-white/95 px-4 py-3 shadow-sm backdrop-blur-sm">
+                <BadgeCheck className="size-5 shrink-0 text-[#1A3B9C]" />
+                <p className="text-[0.6rem] font-semibold leading-tight text-[#5A6E8C]">
+                  {clinic.licenseBadge}
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Right — text */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+            className="order-1 space-y-6 lg:order-2"
+          >
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#CC1B1B]">
+                &Agrave; propos de nous
+              </p>
+              <h2 className="mt-3 max-w-md text-3xl font-extrabold leading-tight text-[#1A3B9C] md:text-4xl">
+                {clinic.presentation.title}
+              </h2>
+              <p className="mt-4 max-w-lg text-sm leading-relaxed text-[#5A6E8C] md:text-base">
+                {clinic.presentation.description}
+              </p>
+            </div>
+
+            <ul className="grid gap-3 sm:grid-cols-2">
+              {clinic.presentation.highlights.map((item, index) => {
+                const Icon = highlightIcons[index] ?? BadgeCheck;
+                return (
+                  <li
+                    key={item.title}
+                    className="rounded-xl border border-[#D5E2F4] bg-[#F4F7FB] p-4 transition-colors hover:border-[#1A3B9C]/25 hover:bg-[#EEF3FC]"
+                  >
+                    <div className="flex items-start gap-3">
+                      <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-white text-[#1A3B9C] shadow-sm ring-1 ring-[#D5E2F4]">
+                        <Icon className="size-4" />
+                      </span>
+                      <div>
+                        <p className="text-sm font-bold text-[#1A3B9C]">{item.title}</p>
+                        <p className="mt-0.5 text-xs leading-relaxed text-[#5A6E8C]">{item.description}</p>
+                      </div>
+                    </div>
+                  </li>
+                );
+              })}
             </ul>
 
             <Button
               asChild
-              variant="outline"
-              className="h-10 border-[#064a9b]/35 bg-white text-[#064a9b] hover:bg-[#eaf6fd] hover:text-[#063773]"
+              className="h-11 bg-[#1A3B9C] px-6 text-white shadow-[0_8px_24px_-12px_rgba(26,59,156,0.5)] hover:bg-[#0F2470]"
             >
-              <Link href="#contact">
-                En savoir plus sur la clinique
-                <ChevronRight />
-              </Link>
+              <Link href="#contact">Prendre rendez-vous</Link>
             </Button>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.45, delay: 0.08 }}
-            className="relative overflow-hidden rounded-3xl border border-white shadow-[0_26px_70px_-42px_rgba(10,47,89,0.6)]"
-          >
-            <Image
-              src={exteriorImage}
-              alt="Façade moderne de la clinique"
-              className="aspect-[16/8.1] w-full object-cover"
-              sizes="(min-width: 1024px) 58vw, 100vw"
-            />
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_62%,rgba(8,47,97,0.18))]" />
-          </motion.div>
         </div>
       </Container>
     </section>

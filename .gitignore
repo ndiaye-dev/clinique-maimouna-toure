@@ -41,3 +41,9 @@ yarn-error.log*
 next-env.d.ts
 
 .vercel
+
+# Temp and audit artifacts
+.tmp/
+.tmp-screenshots/
+artifacts/
+audit-sections.mjs

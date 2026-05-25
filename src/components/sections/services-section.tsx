@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import type { ComponentType } from "react";
+import { motion } from "framer-motion";
 import {
   Activity,
   ArrowRight,
   Baby,
   FlaskConical,
   HandHeart,
-  Heart,
   HeartPulse,
   ScanHeart,
   Stethoscope,
@@ -18,6 +18,8 @@ import {
 
 import clinicBuildingImage from "@/assets/images/clinic-building.png";
 import heroFamilyImage from "@/assets/images/clinic-hero-family.png";
+import servicesBannerImg from "@/assets/images/banners/services-banner.jpg";
+import { SectionBanner } from "@/components/ui/section-banner";
 import birthImage from "@/assets/images/services/accouchement.jpg";
 import labTestsImage from "@/assets/images/services/analyses-biologiques.jpg";
 import diabetesImage from "@/assets/images/services/diabetologie.jpg";
@@ -53,102 +55,124 @@ const imageMap = {
   labTests: labTestsImage,
 } satisfies Record<ServiceImageName, typeof heroFamilyImage>;
 
+const cardVariants = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] as const } },
+};
+
+const staggerGrid = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.07 } },
+};
+
 export function ServicesSection() {
   return (
     <section
       id="services"
-      className="relative isolate overflow-hidden bg-[#fbfdff] pb-14 pt-4 md:pb-20 md:pt-6"
+      className="relative isolate overflow-hidden bg-[#F4F7FB] pb-12 md:pb-16"
     >
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(180deg,#ffffff_0%,#f7fbfe_58%,#ffffff_100%)]" />
+      <SectionBanner
+        title="Nos Services"
+        subtitle="Une prise en charge complète pour chaque étape de votre parcours de santé"
+        image={servicesBannerImg}
+        imageAlt="Médecin de la Clinique Maïmouna Touré"
+        imagePosition="50% 40%"
+        breadcrumb="Services"
+      />
+      <div className="pointer-events-none absolute top-0 left-0 right-0 h-[280px] -z-10" />
 
-      <Container className="max-w-[1280px] space-y-5 md:space-y-6">
-        <div className="mx-auto max-w-2xl text-center">
-          <div className="mx-auto inline-flex max-w-[22rem] flex-wrap items-center justify-center gap-2 rounded-full border border-[#064a9b]/12 bg-white px-4 py-2 text-center text-[0.64rem] font-black uppercase leading-5 tracking-[0.08em] text-[#064a9b] sm:max-w-full sm:text-[0.72rem] sm:tracking-[0.16em]">
-            <Heart className="size-3.5 shrink-0 text-[#dc1f3a]" />
-            <span className="min-w-0 max-w-[17rem] whitespace-normal break-words sm:max-w-none">
-              Des soins de qualité, proche de vous
-            </span>
-          </div>
+      <Container className="max-w-[1280px] space-y-8 pt-10 md:space-y-10 md:pt-12">
 
-          <h2 className="mt-4 font-serif text-4xl font-black leading-tight text-[#063773] md:text-5xl">
-            Nos services
-          </h2>
-
-          <div className="mx-auto mt-2.5 flex w-36 items-center justify-center gap-3 text-[#dc1f3a]">
-            <span className="h-px flex-1 bg-[#dc1f3a]/55" />
-            <Heart className="size-3.5" />
-            <span className="h-px flex-1 bg-[#dc1f3a]/55" />
-          </div>
-
-          <p className="mx-auto mt-2.5 max-w-xl text-sm leading-6 text-[#506985] md:text-base md:leading-7">
-            Une prise en charge complète et personnalisée pour vous accompagner à
-            chaque étape de votre parcours de santé.
-          </p>
-        </div>
-
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <motion.div
+          variants={staggerGrid}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-80px" }}
+          className="grid gap-5 md:grid-cols-2 lg:grid-cols-3"
+        >
           {clinic.services.map((service) => {
             const Icon = iconMap[service.icon];
             const serviceImage = imageMap[service.image];
 
             return (
-              <article
+              <motion.article
                 key={service.slug}
-                className="group overflow-hidden rounded-2xl border border-[#cfddea] bg-white transition-all duration-300 hover:-translate-y-0.5 hover:border-[#064a9b]/38"
+                variants={cardVariants}
+                className="group flex flex-col overflow-hidden rounded-2xl border border-[#D5E2F4] bg-white shadow-[0_4px_24px_-8px_rgba(26,59,156,0.08)] transition-all duration-300 hover:-translate-y-1 hover:border-[#1A3B9C]/30 hover:shadow-[0_12px_40px_-12px_rgba(26,59,156,0.18)]"
               >
+                <div className="h-1 w-full bg-gradient-to-r from-[#CC1B1B] to-[#1A3B9C]" />
+
                 <div
                   role="img"
                   aria-label={service.imageAlt}
-                  className="relative aspect-[16/8] bg-[#eef8fd] bg-cover"
+                  className="relative aspect-[16/8] bg-[#EEF3FC] bg-cover"
                   style={{
                     backgroundImage: `url(${serviceImage.src})`,
                     backgroundPosition: service.imagePosition ?? "50% 50%",
                   }}
                 >
-                  <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_35%,rgba(255,255,255,0.16)_100%)]" />
-                  <div className="absolute bottom-3 left-5 flex size-12 items-center justify-center rounded-full border border-[#d9e7f2] bg-white/95 text-[#064a9b] backdrop-blur-sm">
+                  <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_40%,rgba(15,36,112,0.12)_100%)]" />
+                  <div className="absolute bottom-3 left-5 flex size-12 items-center justify-center rounded-full bg-gradient-to-br from-[#1A3B9C] to-[#0F2470] text-white shadow-[0_6px_20px_-6px_rgba(26,59,156,0.6)]">
                     <Icon className="size-5" />
                   </div>
                 </div>
 
-                <div className="px-6 pb-5 pt-5">
-                  <h3 className="font-serif text-[1.35rem] font-black leading-tight text-[#063773]">
+                <div className="flex flex-1 flex-col px-6 pb-6 pt-5">
+                  <h3 className="font-serif text-[1.25rem] font-black leading-tight text-[#1A3B9C]">
                     {service.title}
                   </h3>
-                  <span className="mt-2.5 block h-0.5 w-7 rounded-full bg-[#dc1f3a]" />
-                  <p className="mt-2.5 min-h-[2.65rem] text-sm leading-6 text-[#425c79]">
+                  <span className="mt-2 block h-0.5 w-8 rounded-full bg-[#CC1B1B]" />
+                  <p className="mt-2.5 flex-1 text-sm leading-6 text-[#5A6E8C]">
                     {service.description}
                   </p>
                 </div>
-              </article>
+              </motion.article>
             );
           })}
-        </div>
+        </motion.div>
 
-        <div className="mx-auto grid max-w-5xl gap-5 rounded-2xl border border-[#cfddea] bg-white px-6 py-5 md:grid-cols-[1fr_auto] md:items-center md:px-8">
-          <div className="flex items-start gap-4">
-            <span className="hidden size-14 shrink-0 items-center justify-center rounded-full border border-[#dbe8f2] bg-[#f4fbfe] text-[#064a9b] sm:flex">
-              <HandHeart className="size-7" />
-            </span>
-            <div>
-              <h3 className="text-base font-black text-[#063773] md:text-lg">
-                Découvrez l&apos;ensemble de nos prestations médicales
-              </h3>
-              <p className="mt-1 max-w-xl text-sm leading-6 text-[#506985]">
-                Nous mettons tout en œuvre pour vous offrir des soins sûrs,
-                humains et de qualité.
-              </p>
-            </div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          className="rounded-2xl border border-[#D5E2F4] bg-white p-6 md:p-8"
+        >
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#CC1B1B]">
+            &Eacute;galement disponibles
+          </p>
+          <h3 className="mt-2 text-lg font-black text-[#1A3B9C]">
+            Autres prestations m&eacute;dicales
+          </h3>
+          <div className="mt-4 flex flex-wrap gap-2.5">
+            {clinic.additionalServices.map((service) => {
+              const Icon = iconMap[service.icon];
+              return (
+                <span
+                  key={service.slug}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-[#D5E2F4] bg-[#EEF3FC] px-4 py-2 text-sm font-semibold text-[#1A3B9C] transition-colors hover:border-[#1A3B9C]/40 hover:bg-white"
+                >
+                  <Icon className="size-3.5 text-[#CC1B1B]" />
+                  {service.title}
+                </span>
+              );
+            })}
           </div>
 
-          <Link
-            href="#services"
-            className="inline-flex h-12 items-center justify-center gap-3 rounded-lg border border-[#064a9b] bg-[#064a9b] px-7 text-sm font-bold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#053f84]"
-          >
-            Voir tous les services
-            <ArrowRight className="size-4" />
-          </Link>
-        </div>
+          <div className="mt-6 flex flex-col items-start gap-4 border-t border-[#D5E2F4] pt-5 sm:flex-row sm:items-center sm:justify-between">
+            <p className="max-w-lg text-sm leading-6 text-[#5A6E8C]">
+              Nous mettons tout en &oelig;uvre pour vous offrir des soins s&ucirc;rs, humains et de qualit&eacute; &agrave; Keur Massar.
+            </p>
+            <Link
+              href="#contact"
+              className="inline-flex shrink-0 items-center gap-2 rounded-lg bg-[#1A3B9C] px-6 py-2.5 text-sm font-bold text-white transition-all hover:-translate-y-0.5 hover:bg-[#0F2470]"
+            >
+              Nous contacter
+              <ArrowRight className="size-4" />
+            </Link>
+          </div>
+        </motion.div>
+
       </Container>
     </section>
   );

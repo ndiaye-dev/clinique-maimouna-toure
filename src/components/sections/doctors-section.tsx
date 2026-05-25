@@ -1,114 +1,103 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "framer-motion";
-import { CalendarClock, MessageCircle, Sparkles } from "lucide-react";
+import { BadgeCheck, Globe2, Stethoscope, UserCircle2 } from "lucide-react";
 
 import { clinic } from "@/data/clinic";
 import { Container } from "@/components/layout/container";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
-
-const whatsappHref = `https://wa.me/${clinic.whatsapp}`;
-
-function initialsFromName(name: string): string {
-  return name
-    .split(" ")
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((chunk) => chunk[0]?.toUpperCase() ?? "")
-    .join("");
-}
+import medecinsBannerImg from "@/assets/images/gallery/doctor-office.jpg";
+import { SectionBanner } from "@/components/ui/section-banner";
 
 export function DoctorsSection() {
   return (
-    <section id="medecins" className="pb-20 pt-4 md:pb-24">
-      <Container className="space-y-6">
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.25 }}
-          transition={{ duration: 0.45 }}
-          className="max-w-2xl space-y-2"
-        >
-          <p className="text-sm font-semibold uppercase tracking-wide text-primary">
-            Notre Équipe Médicale
-          </p>
-          <h2 className="font-heading text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
-            Des médecins qualifiés, à l’écoute de chaque patient
-          </h2>
-          <p className="text-sm leading-relaxed text-muted-foreground md:text-base">
-            Une équipe expérimentée assure un suivi clinique structuré et une qualité de
-            soins constante pour les familles de Keur Massar.
-          </p>
-        </motion.div>
+    <section id="medecins" className="bg-[#F4F7FB] pb-12 md:pb-16">
+      <SectionBanner
+        title="Notre Équipe Médicale"
+        subtitle="Des professionnels de santé qualifiés et dévoués à votre service"
+        image={medecinsBannerImg}
+        imageAlt="Bureau médical de la Clinique Maïmouna Touré"
+        imagePosition="50% 25%"
+        breadcrumb="Médecins"
+      />
+      <Container className="pt-10 md:pt-12">
 
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.18 }}
-          transition={{ staggerChildren: 0.08 }}
-          className="grid gap-4 lg:grid-cols-3"
-        >
-          {clinic.doctors.map((doctor) => (
-            <motion.article
+        <div className="space-y-5">
+          {clinic.doctors.map((doctor, index) => (
+            <motion.div
               key={doctor.name}
-              variants={{
-                hidden: { opacity: 0, y: 16 },
-                show: { opacity: 1, y: 0 },
-              }}
-              transition={{ duration: 0.35 }}
-              whileHover={{ y: -4 }}
-              className="group rounded-3xl border border-border/70 bg-card p-5 shadow-[0_18px_42px_-30px_rgba(16,35,58,0.6)]"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.55, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="overflow-hidden rounded-2xl border border-[#D5E2F4] bg-white shadow-[0_4px_24px_-8px_rgba(26,59,156,0.10)] transition-all duration-300 hover:border-[#1A3B9C]/25 hover:shadow-[0_12px_40px_-12px_rgba(26,59,156,0.18)]"
             >
-              <div className="flex items-start justify-between gap-3">
-                <div className="flex items-center gap-3">
-                  <Avatar size="lg" className="size-12">
-                    <AvatarFallback className="bg-primary/12 text-sm font-semibold text-primary">
-                      {initialsFromName(doctor.name)}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p className="font-heading text-lg font-semibold text-foreground">
-                      {doctor.name}
-                    </p>
-                    <p className="text-xs font-medium uppercase tracking-wide text-primary">
-                      {doctor.role}
-                    </p>
+              <div className="h-[3px] w-full bg-gradient-to-r from-[#CC1B1B] via-[#2D52B8] to-[#1A3B9C]" />
+
+              <div className="flex flex-col gap-6 p-6 sm:flex-row sm:items-start sm:gap-8 md:p-8">
+
+                {/* Avatar */}
+                <div className="flex shrink-0 flex-col items-center gap-3">
+                  <div className="flex size-28 items-center justify-center rounded-2xl bg-[#EEF3FC] text-[#1A3B9C] ring-4 ring-[#D5E2F4] sm:size-32">
+                    <UserCircle2 className="size-16 opacity-35" />
                   </div>
+                  <span className="inline-flex items-center gap-1 rounded-full bg-[#EEF3FC] px-3 py-1 text-[0.65rem] font-bold text-[#1A3B9C]">
+                    <BadgeCheck className="size-3 text-[#CC1B1B]" />
+                    Agr&eacute;e MSAS
+                  </span>
                 </div>
-                <Sparkles className="size-4 text-primary/70" />
-              </div>
 
-              <div className="mt-4 space-y-2">
-                <p className="text-sm font-medium text-foreground">{doctor.speciality}</p>
-                <p className="text-sm text-muted-foreground">{doctor.bio}</p>
-              </div>
+                {/* Informations */}
+                <div className="flex-1">
+                  <h3 className="text-2xl font-black text-[#0D1B4B]">{doctor.name}</h3>
+                  <p className="mt-0.5 text-sm font-semibold text-[#CC1B1B]">{doctor.role}</p>
 
-              <div className="mt-4 grid gap-2 text-xs text-muted-foreground">
-                <p className="inline-flex items-center gap-2">
-                  <CalendarClock className="size-3.5 text-primary" />
-                  {doctor.availability}
-                </p>
-                <p className="text-foreground/85">{doctor.experience}</p>
-                <p>Langues: {doctor.languages.join(" • ")}</p>
-              </div>
+                  <div className="mt-3 flex items-center gap-2">
+                    <span className="flex size-7 items-center justify-center rounded-lg bg-[#EEF3FC] text-[#1A3B9C]">
+                      <Stethoscope className="size-3.5" />
+                    </span>
+                    <span className="text-sm font-semibold text-[#1A3B9C]">{doctor.speciality}</span>
+                  </div>
 
-              <Button asChild className="mt-5 w-full">
-                <Link
-                  href={`${whatsappHref}?text=${encodeURIComponent(
-                    `Bonjour, je souhaite consulter ${doctor.name} (${doctor.speciality}).`
-                  )}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <MessageCircle />
-                  Prendre rendez-vous
-                </Link>
-              </Button>
-            </motion.article>
+                  <p className="mt-3 max-w-xl text-sm leading-relaxed text-[#5A6E8C]">{doctor.bio}</p>
+
+                  {doctor.languages && doctor.languages.length > 0 && (
+                    <div className="mt-4 flex items-center gap-2">
+                      <Globe2 className="size-3.5 shrink-0 text-[#1A3B9C]/60" />
+                      <div className="flex flex-wrap gap-1.5">
+                        {doctor.languages.map((lang) => (
+                          <span
+                            key={lang}
+                            className="rounded-full border border-[#D5E2F4] bg-[#F4F7FB] px-2.5 py-0.5 text-[0.65rem] font-medium text-[#5A6E8C]"
+                          >
+                            {lang}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </motion.div>
           ))}
-        </motion.div>
+
+          {/* Note equipe */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="rounded-2xl border border-dashed border-[#D5E2F4] bg-white px-6 py-5 text-center"
+          >
+            <p className="text-sm text-[#5A6E8C]">
+              Notre &eacute;quipe comprend &eacute;galement des sages-femmes, infirmiers et sp&eacute;cialistes
+              disponibles selon les consultations.{" "}
+              <a href="#contact" className="font-semibold text-[#1A3B9C] hover:underline">
+                Contactez-nous pour plus d&apos;informations.
+              </a>
+            </p>
+          </motion.div>
+        </div>
+
       </Container>
     </section>
   );

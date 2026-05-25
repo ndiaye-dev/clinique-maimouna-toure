@@ -85,11 +85,13 @@ export type ClinicLocation = {
 
 export type ClinicProfile = {
   name: string;
+  abbreviation?: string;
   tagline: string;
   heroDescription: string;
   location: string;
   district: string;
   phone: string;
+  phoneMobile?: string;
   whatsapp: string;
   email: string;
   licenseBadge: string;

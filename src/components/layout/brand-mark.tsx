@@ -25,13 +25,13 @@ export function BrandMark({
 
   return (
     <Link href="/" className={cn("group flex min-w-0 items-center gap-3", className)}>
-      <div className="relative shrink-0 rounded-lg bg-white/85 px-2 py-1 ring-1 ring-border/60">
+      <div className="relative shrink-0 overflow-hidden rounded-xl shadow-[0_2px_12px_-3px_rgba(26,59,156,0.18)]">
         <Image
           src={logo}
           alt={`Logo ${clinic.name}`}
           width={logo.width}
           height={logo.height}
-          className="h-9 w-auto object-contain md:h-10"
+          className="h-10 w-auto object-contain md:h-11"
           priority
         />
       </div>
