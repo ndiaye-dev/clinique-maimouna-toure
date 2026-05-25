@@ -30,6 +30,7 @@ import pediatricsImage from "@/assets/images/services/pediatrie.jpg";
 import { Container } from "@/components/layout/container";
 import { clinic } from "@/data/clinic";
 import type { ServiceIconName, ServiceImageName } from "@/types/clinic";
+import { cardReveal, fadeBlurUp, fadeUp, fadePop, lineExpand, staggerGrid, staggerHeader, vp } from "@/lib/motion";
 
 const iconMap: Record<ServiceIconName, ComponentType<{ className?: string }>> = {
   stethoscope: Stethoscope,
@@ -55,16 +56,6 @@ const imageMap = {
   labTests: labTestsImage,
 } satisfies Record<ServiceImageName, typeof heroFamilyImage>;
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] as const } },
-};
-
-const staggerGrid = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.07 } },
-};
-
 export function ServicesSection() {
   return (
     <section
@@ -79,15 +70,36 @@ export function ServicesSection() {
         imagePosition="50% 40%"
         breadcrumb="Services"
       />
-      <div className="pointer-events-none absolute top-0 left-0 right-0 h-[280px] -z-10" />
 
       <Container className="max-w-[1280px] space-y-8 pt-10 md:space-y-10 md:pt-12">
 
+        {/* Section intro */}
+        <motion.div
+          variants={staggerHeader}
+          initial="hidden"
+          whileInView="show"
+          viewport={vp}
+          className="text-center"
+        >
+          <motion.p variants={fadePop} className="text-xs font-bold uppercase tracking-[0.22em] text-[#CC1B1B]">
+            Nos spécialités
+          </motion.p>
+          <motion.h2 variants={fadeBlurUp} className="mt-2 text-2xl font-extrabold text-[#1A3B9C] md:text-3xl">
+            Des soins adaptés à chaque besoin
+          </motion.h2>
+          <motion.div
+            variants={lineExpand}
+            style={{ originX: 0.5 }}
+            className="mx-auto mt-3 h-0.5 w-14 rounded-full bg-[#CC1B1B]"
+          />
+        </motion.div>
+
+        {/* Cards grid */}
         <motion.div
           variants={staggerGrid}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: "-80px" }}
+          viewport={vp}
           className="grid gap-5 md:grid-cols-2 lg:grid-cols-3"
         >
           {clinic.services.map((service) => {
@@ -97,22 +109,23 @@ export function ServicesSection() {
             return (
               <motion.article
                 key={service.slug}
-                variants={cardVariants}
-                className="group flex flex-col overflow-hidden rounded-2xl border border-[#D5E2F4] bg-white shadow-[0_4px_24px_-8px_rgba(26,59,156,0.08)] transition-all duration-300 hover:-translate-y-1 hover:border-[#1A3B9C]/30 hover:shadow-[0_12px_40px_-12px_rgba(26,59,156,0.18)]"
+                variants={cardReveal}
+                className="group flex flex-col overflow-hidden rounded-2xl border border-[#D5E2F4] bg-white shadow-[0_4px_24px_-8px_rgba(26,59,156,0.08)] transition-all duration-300 hover:-translate-y-1.5 hover:border-[#1A3B9C]/30 hover:shadow-[0_16px_48px_-12px_rgba(26,59,156,0.22)]"
               >
                 <div className="h-1 w-full bg-gradient-to-r from-[#CC1B1B] to-[#1A3B9C]" />
 
                 <div
                   role="img"
                   aria-label={service.imageAlt}
-                  className="relative aspect-[16/8] bg-[#EEF3FC] bg-cover"
+                  className="relative aspect-[16/8] bg-[#EEF3FC] bg-cover overflow-hidden"
                   style={{
                     backgroundImage: `url(${serviceImage.src})`,
                     backgroundPosition: service.imagePosition ?? "50% 50%",
                   }}
                 >
-                  <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_40%,rgba(15,36,112,0.12)_100%)]" />
-                  <div className="absolute bottom-3 left-5 flex size-12 items-center justify-center rounded-full bg-gradient-to-br from-[#1A3B9C] to-[#0F2470] text-white shadow-[0_6px_20px_-6px_rgba(26,59,156,0.6)]">
+                  <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_40%,rgba(15,36,112,0.12)_100%)] transition-opacity duration-300 group-hover:opacity-0" />
+                  <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_30%,rgba(15,36,112,0.22)_100%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  <div className="absolute bottom-3 left-5 flex size-12 items-center justify-center rounded-full bg-gradient-to-br from-[#1A3B9C] to-[#0F2470] text-white shadow-[0_6px_20px_-6px_rgba(26,59,156,0.6)] transition-transform duration-300 group-hover:scale-110">
                     <Icon className="size-5" />
                   </div>
                 </div>
@@ -121,7 +134,14 @@ export function ServicesSection() {
                   <h3 className="font-serif text-[1.25rem] font-black leading-tight text-[#1A3B9C]">
                     {service.title}
                   </h3>
-                  <span className="mt-2 block h-0.5 w-8 rounded-full bg-[#CC1B1B]" />
+                  <motion.span
+                    initial={{ scaleX: 0 }}
+                    whileInView={{ scaleX: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] as const, delay: 0.2 }}
+                    style={{ originX: 0 }}
+                    className="mt-2 block h-0.5 w-8 rounded-full bg-[#CC1B1B]"
+                  />
                   <p className="mt-2.5 flex-1 text-sm leading-6 text-[#5A6E8C]">
                     {service.description}
                   </p>
@@ -131,11 +151,12 @@ export function ServicesSection() {
           })}
         </motion.div>
 
+        {/* Additional services */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          variants={cardReveal}
+          initial="hidden"
+          whileInView="show"
+          viewport={vp}
           className="rounded-2xl border border-[#D5E2F4] bg-white p-6 md:p-8"
         >
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#CC1B1B]">
@@ -150,7 +171,7 @@ export function ServicesSection() {
               return (
                 <span
                   key={service.slug}
-                  className="inline-flex items-center gap-1.5 rounded-full border border-[#D5E2F4] bg-[#EEF3FC] px-4 py-2 text-sm font-semibold text-[#1A3B9C] transition-colors hover:border-[#1A3B9C]/40 hover:bg-white"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-[#D5E2F4] bg-[#EEF3FC] px-4 py-2 text-sm font-semibold text-[#1A3B9C] transition-all duration-200 hover:border-[#1A3B9C]/40 hover:bg-white hover:shadow-sm"
                 >
                   <Icon className="size-3.5 text-[#CC1B1B]" />
                   {service.title}
@@ -165,7 +186,7 @@ export function ServicesSection() {
             </p>
             <Link
               href="#contact"
-              className="inline-flex shrink-0 items-center gap-2 rounded-lg bg-[#1A3B9C] px-6 py-2.5 text-sm font-bold text-white transition-all hover:-translate-y-0.5 hover:bg-[#0F2470]"
+              className="inline-flex shrink-0 items-center gap-2 rounded-lg bg-[#1A3B9C] px-6 py-2.5 text-sm font-bold text-white transition-all hover:-translate-y-0.5 hover:bg-[#0F2470] hover:shadow-[0_8px_24px_-8px_rgba(26,59,156,0.4)]"
             >
               Nous contacter
               <ArrowRight className="size-4" />

@@ -7,6 +7,7 @@ import { clinic } from "@/data/clinic";
 import { Container } from "@/components/layout/container";
 import medecinsBannerImg from "@/assets/images/gallery/doctor-office.jpg";
 import { SectionBanner } from "@/components/ui/section-banner";
+import { cardReveal, fadeBlurUp, fadeUp, fadePop, lineExpand, slideLeft, staggerHeader, vp } from "@/lib/motion";
 
 export function DoctorsSection() {
   return (
@@ -21,21 +22,42 @@ export function DoctorsSection() {
       />
       <Container className="pt-10 md:pt-12">
 
+        {/* Intro header */}
+        <motion.div
+          variants={staggerHeader}
+          initial="hidden"
+          whileInView="show"
+          viewport={vp}
+          className="mb-8 text-center"
+        >
+          <motion.p variants={fadePop} className="text-xs font-bold uppercase tracking-[0.22em] text-[#CC1B1B]">
+            Notre &eacute;quipe
+          </motion.p>
+          <motion.h2 variants={fadeBlurUp} className="mt-2 text-2xl font-extrabold text-[#1A3B9C] md:text-3xl">
+            Des m&eacute;decins &agrave; votre &eacute;coute
+          </motion.h2>
+          <motion.div
+            variants={lineExpand}
+            style={{ originX: 0.5 }}
+            className="mx-auto mt-3 h-0.5 w-14 rounded-full bg-[#CC1B1B]"
+          />
+        </motion.div>
+
         <div className="space-y-5">
           {clinic.doctors.map((doctor, index) => (
             <motion.div
               key={doctor.name}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.55, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="overflow-hidden rounded-2xl border border-[#D5E2F4] bg-white shadow-[0_4px_24px_-8px_rgba(26,59,156,0.10)] transition-all duration-300 hover:border-[#1A3B9C]/25 hover:shadow-[0_12px_40px_-12px_rgba(26,59,156,0.18)]"
+              variants={slideLeft}
+              initial="hidden"
+              whileInView="show"
+              viewport={vp}
+              transition={{ delay: index * 0.1 } as never}
+              className="overflow-hidden rounded-2xl border border-[#D5E2F4] bg-white shadow-[0_4px_24px_-8px_rgba(26,59,156,0.10)] transition-all duration-300 hover:border-[#1A3B9C]/25 hover:shadow-[0_16px_48px_-12px_rgba(26,59,156,0.2)]"
             >
               <div className="h-[3px] w-full bg-gradient-to-r from-[#CC1B1B] via-[#2D52B8] to-[#1A3B9C]" />
 
               <div className="flex flex-col gap-6 p-6 sm:flex-row sm:items-start sm:gap-8 md:p-8">
 
-                {/* Avatar */}
                 <div className="flex shrink-0 flex-col items-center gap-3">
                   <div className="flex size-28 items-center justify-center rounded-2xl bg-[#EEF3FC] text-[#1A3B9C] ring-4 ring-[#D5E2F4] sm:size-32">
                     <UserCircle2 className="size-16 opacity-35" />
@@ -46,7 +68,6 @@ export function DoctorsSection() {
                   </span>
                 </div>
 
-                {/* Informations */}
                 <div className="flex-1">
                   <h3 className="text-2xl font-black text-[#0D1B4B]">{doctor.name}</h3>
                   <p className="mt-0.5 text-sm font-semibold text-[#CC1B1B]">{doctor.role}</p>
@@ -80,12 +101,11 @@ export function DoctorsSection() {
             </motion.div>
           ))}
 
-          {/* Note equipe */}
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            variants={cardReveal}
+            initial="hidden"
+            whileInView="show"
+            viewport={vp}
             className="rounded-2xl border border-dashed border-[#D5E2F4] bg-white px-6 py-5 text-center"
           >
             <p className="text-sm text-[#5A6E8C]">

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -10,6 +10,10 @@ import clinicFacade from "@/assets/images/clinique-maimouna-toure-facade.png";
 import { clinic } from "@/data/clinic";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/layout/container";
+import {
+  fadeBlurUp, fadeUp, fadePop, cardReveal, imageReveal,
+  slideLeft, slideRight, staggerGrid, staggerHeader, lineExpand, vp,
+} from "@/lib/motion";
 
 const exteriorImages = {
   "clinic-building.png": clinicBuilding,
@@ -31,21 +35,30 @@ export function AboutClinicSection() {
 
           {/* Left — image */}
           <motion.div
-            initial={{ opacity: 0, x: -32 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+            variants={slideLeft}
+            initial="hidden"
+            whileInView="show"
+            viewport={vp}
             className="relative order-2 lg:order-1"
           >
             <div className="absolute -left-4 -top-4 h-full w-full rounded-3xl bg-[#EEF3FC]" />
 
             <div className="relative flex min-h-[320px] items-center justify-center overflow-hidden rounded-3xl border border-[#D5E2F4] bg-white p-3 shadow-[0_24px_60px_-20px_rgba(26,59,156,0.18)] sm:min-h-[400px] md:min-h-[460px]">
-              <Image
-                src={exteriorImage}
-                alt="Facade de la Clinique Maimouna Toure"
-                className="h-full w-full object-contain object-center"
-                sizes="(min-width: 1024px) 50vw, 100vw"
-              />
+              <motion.div
+                variants={imageReveal}
+                initial="hidden"
+                whileInView="show"
+                viewport={vp}
+                className="h-full w-full"
+              >
+                <Image
+                  src={exteriorImage}
+                  alt="Facade de la Clinique Maimouna Toure"
+                  className="h-full w-full object-contain object-center"
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                />
+              </motion.div>
+
               <div className="absolute bottom-4 left-4 right-4 flex items-center gap-2.5 rounded-xl border border-[#D5E2F4] bg-white/95 px-4 py-3 shadow-sm backdrop-blur-sm">
                 <BadgeCheck className="size-5 shrink-0 text-[#1A3B9C]" />
                 <p className="text-[0.6rem] font-semibold leading-tight text-[#5A6E8C]">
@@ -56,31 +69,54 @@ export function AboutClinicSection() {
           </motion.div>
 
           {/* Right — text */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-            className="order-1 space-y-6 lg:order-2"
-          >
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#CC1B1B]">
-                &Agrave; propos de nous
-              </p>
-              <h2 className="mt-3 max-w-md text-3xl font-extrabold leading-tight text-[#1A3B9C] md:text-4xl">
-                {clinic.presentation.title}
-              </h2>
-              <p className="mt-4 max-w-lg text-sm leading-relaxed text-[#5A6E8C] md:text-base">
-                {clinic.presentation.description}
-              </p>
-            </div>
+          <div className="order-1 space-y-6 lg:order-2">
 
-            <ul className="grid gap-3 sm:grid-cols-2">
+            {/* Header cascade */}
+            <motion.div
+              variants={staggerHeader}
+              initial="hidden"
+              whileInView="show"
+              viewport={vp}
+            >
+              <motion.p
+                variants={fadePop}
+                className="text-xs font-bold uppercase tracking-[0.24em] text-[#CC1B1B]"
+              >
+                &Agrave; propos de nous
+              </motion.p>
+              <motion.h2
+                variants={fadeBlurUp}
+                className="mt-3 max-w-md text-3xl font-extrabold leading-tight text-[#1A3B9C] md:text-4xl"
+              >
+                {clinic.presentation.title}
+              </motion.h2>
+              <motion.div
+                variants={lineExpand}
+                style={{ originX: 0 }}
+                className="mt-3 h-0.5 w-12 rounded-full bg-[#CC1B1B]"
+              />
+              <motion.p
+                variants={fadeUp}
+                className="mt-4 max-w-lg text-sm leading-relaxed text-[#5A6E8C] md:text-base"
+              >
+                {clinic.presentation.description}
+              </motion.p>
+            </motion.div>
+
+            {/* Highlight cards stagger */}
+            <motion.ul
+              variants={staggerGrid}
+              initial="hidden"
+              whileInView="show"
+              viewport={vp}
+              className="grid gap-3 sm:grid-cols-2"
+            >
               {clinic.presentation.highlights.map((item, index) => {
                 const Icon = highlightIcons[index] ?? BadgeCheck;
                 return (
-                  <li
+                  <motion.li
                     key={item.title}
+                    variants={cardReveal}
                     className="rounded-xl border border-[#D5E2F4] bg-[#F4F7FB] p-4 transition-colors hover:border-[#1A3B9C]/25 hover:bg-[#EEF3FC]"
                   >
                     <div className="flex items-start gap-3">
@@ -92,18 +128,25 @@ export function AboutClinicSection() {
                         <p className="mt-0.5 text-xs leading-relaxed text-[#5A6E8C]">{item.description}</p>
                       </div>
                     </div>
-                  </li>
+                  </motion.li>
                 );
               })}
-            </ul>
+            </motion.ul>
 
-            <Button
-              asChild
-              className="h-11 bg-[#1A3B9C] px-6 text-white shadow-[0_8px_24px_-12px_rgba(26,59,156,0.5)] hover:bg-[#0F2470]"
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="show"
+              viewport={vp}
             >
-              <Link href="#contact">Prendre rendez-vous</Link>
-            </Button>
-          </motion.div>
+              <Button
+                asChild
+                className="h-11 bg-[#1A3B9C] px-6 text-white shadow-[0_8px_24px_-12px_rgba(26,59,156,0.5)] hover:bg-[#0F2470]"
+              >
+                <Link href="#contact">Prendre rendez-vous</Link>
+              </Button>
+            </motion.div>
+          </div>
 
         </div>
       </Container>

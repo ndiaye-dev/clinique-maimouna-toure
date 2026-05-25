@@ -7,6 +7,7 @@ import { X, ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
 
 import { Container } from "@/components/layout/container";
 import { SectionBanner } from "@/components/ui/section-banner";
+import { fadeBlurUp, fadePop, lineExpand, staggerGrid, staggerHeader, vp } from "@/lib/motion";
 
 import facadeImg from "@/assets/images/gallery/facade.jpg";
 import galerieBannerImg from "@/assets/images/banners/galerie-banner.jpg";
@@ -40,28 +41,28 @@ const photos: Photo[] = [
   { src: frontViewImg,    alt: "Couloir Labo et Salle d'accouchement",     label: "Couloir intérieur",      position: "50% 40%" },
 ];
 
-// Grid layout: first photo is large (col-span-2 row-span-2), second spans vertically
 const gridClasses = [
-  "col-span-2 row-span-2",  // 0 facade — grande vedette
-  "col-span-1 row-span-2",  // 1 reception — haute
-  "col-span-1 row-span-1",  // 2 entrance
-  "col-span-1 row-span-1",  // 3 exam-room
-  "col-span-1 row-span-1",  // 4 gynecology
-  "col-span-1 row-span-1",  // 5 doctor-office
-  "col-span-1 row-span-1",  // 6 medical-office
-  "col-span-1 row-span-1",  // 7 observation
-  "col-span-1 row-span-1",  // 8 consultation
-  "col-span-1 row-span-1",  // 9 front-view
+  "col-span-2 row-span-2",
+  "col-span-1 row-span-2",
+  "col-span-1 row-span-1",
+  "col-span-1 row-span-1",
+  "col-span-1 row-span-1",
+  "col-span-1 row-span-1",
+  "col-span-1 row-span-1",
+  "col-span-1 row-span-1",
+  "col-span-1 row-span-1",
+  "col-span-1 row-span-1",
 ];
 
-const photoVariants = {
-  hidden: { opacity: 0, y: 16 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const } },
+// Photo card variant with zoom-out reveal
+const photoReveal = {
+  hidden: { opacity: 0, scale: 0.88, filter: "blur(8px)" },
+  show:   { opacity: 1, scale: 1,    filter: "blur(0px)", transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] as const } },
 };
 
-const staggerGrid = {
+const staggerPhotos = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.05 } },
+  show:   { transition: { staggerChildren: 0.055, delayChildren: 0.05 } },
 };
 
 function Lightbox({
@@ -99,7 +100,6 @@ function Lightbox({
       className="fixed inset-0 z-50 flex items-center justify-center bg-[#0D1B4B]/95 backdrop-blur-sm"
       onClick={onClose}
     >
-      {/* Fermer */}
       <button
         onClick={onClose}
         className="absolute right-4 top-4 flex size-10 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/25 z-10"
@@ -107,12 +107,10 @@ function Lightbox({
         <X className="size-5" />
       </button>
 
-      {/* Compteur */}
       <div className="absolute top-4 left-1/2 -translate-x-1/2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-semibold text-white/80">
         {current + 1} / {photos.length}
       </div>
 
-      {/* Navigation gauche */}
       <button
         onClick={(e) => { e.stopPropagation(); prev(); }}
         className="absolute left-4 flex size-12 items-center justify-center rounded-full bg-white/10 text-white transition-all hover:bg-white/25 hover:scale-105"
@@ -120,7 +118,6 @@ function Lightbox({
         <ChevronLeft className="size-6" />
       </button>
 
-      {/* Image */}
       <motion.div
         key={current}
         initial={{ opacity: 0, scale: 0.96 }}
@@ -137,14 +134,12 @@ function Lightbox({
             style={{ objectPosition: photo.position }}
             priority
           />
-          {/* Label bas */}
           <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#0D1B4B]/80 to-transparent px-6 py-4">
             <p className="text-sm font-semibold text-white">{photo.label}</p>
             <p className="text-xs text-white/60">Clinique Ma&iuml;mouna Tour&eacute; &mdash; Keur Massar</p>
           </div>
         </div>
 
-        {/* Miniatures */}
         <div className="mt-4 flex justify-center gap-2 overflow-x-auto pb-1">
           {photos.map((p, i) => (
             <button
@@ -161,7 +156,6 @@ function Lightbox({
         </div>
       </motion.div>
 
-      {/* Navigation droite */}
       <button
         onClick={(e) => { e.stopPropagation(); next(); }}
         className="absolute right-4 flex size-12 items-center justify-center rounded-full bg-white/10 text-white transition-all hover:bg-white/25 hover:scale-105"
@@ -197,21 +191,42 @@ export function GallerySection() {
         />
         <Container className="pt-10 md:pt-12">
 
-          {/* Grille magazine */}
+          {/* Header */}
           <motion.div
-            variants={staggerGrid}
+            variants={staggerHeader}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, margin: "-80px" }}
+            viewport={vp}
+            className="mb-8 text-center"
+          >
+            <motion.p variants={fadePop} className="text-xs font-bold uppercase tracking-[0.22em] text-[#CC1B1B]">
+              Galerie
+            </motion.p>
+            <motion.h2 variants={fadeBlurUp} className="mt-2 text-2xl font-extrabold text-[#1A3B9C] md:text-3xl">
+              Nos espaces de soins
+            </motion.h2>
+            <motion.div
+              variants={lineExpand}
+              style={{ originX: 0.5 }}
+              className="mx-auto mt-3 h-0.5 w-14 rounded-full bg-[#CC1B1B]"
+            />
+          </motion.div>
+
+          {/* Photo grid */}
+          <motion.div
+            variants={staggerPhotos}
+            initial="hidden"
+            whileInView="show"
+            viewport={vp}
             className="grid grid-cols-3 grid-rows-[repeat(4,180px)] gap-3 md:grid-rows-[repeat(4,200px)] md:gap-4"
           >
             {photos.map((photo, i) => (
               <motion.button
                 key={photo.alt}
-                variants={photoVariants}
+                variants={photoReveal}
                 onClick={() => setLightboxIndex(i)}
                 className={[
-                  "group relative overflow-hidden rounded-2xl bg-[#D5E2F4] text-left shadow-[0_4px_20px_-6px_rgba(26,59,156,0.12)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_36px_-8px_rgba(26,59,156,0.22)]",
+                  "group relative overflow-hidden rounded-2xl bg-[#D5E2F4] text-left shadow-[0_4px_20px_-6px_rgba(26,59,156,0.12)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_48px_-8px_rgba(26,59,156,0.28)]",
                   gridClasses[i],
                 ].join(" ")}
               >
@@ -219,38 +234,33 @@ export function GallerySection() {
                   src={photo.src}
                   alt={photo.alt}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-[1.04] [filter:contrast(1.04)_saturate(1.06)]"
+                  className="object-cover transition-transform duration-700 group-hover:scale-[1.07] [filter:contrast(1.04)_saturate(1.06)]"
                   style={{ objectPosition: photo.position }}
                   sizes="(min-width: 1024px) 33vw, 50vw"
                 />
 
-                {/* Gradient permanent subtil en bas */}
-                <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#0D1B4B]/60 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0D1B4B]/65 via-transparent to-transparent opacity-80 transition-opacity duration-300 group-hover:opacity-100" />
 
-                {/* Label */}
-                <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4">
-                  <span className="text-[0.68rem] font-bold uppercase tracking-[0.1em] text-white/90">
+                <div className="absolute bottom-0 left-0 right-0 translate-y-1 p-3 transition-transform duration-300 group-hover:translate-y-0 md:p-4">
+                  <span className="text-[0.68rem] font-bold uppercase tracking-[0.1em] text-white/90 drop-shadow-sm">
                     {photo.label}
                   </span>
                 </div>
 
-                {/* Icone zoom au hover */}
                 <div className="absolute right-3 top-3 flex size-8 items-center justify-center rounded-full bg-white/0 text-white/0 transition-all duration-300 group-hover:bg-white/20 group-hover:text-white">
                   <ZoomIn className="size-4" />
                 </div>
 
-                {/* Barre accent top au hover */}
                 <div className="absolute inset-x-0 top-0 h-[3px] translate-y-[-3px] bg-gradient-to-r from-[#CC1B1B] via-[#2D52B8] to-[#1A3B9C] transition-transform duration-300 group-hover:translate-y-0" />
               </motion.button>
             ))}
           </motion.div>
 
-          {/* Hint clic */}
           <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            variants={fadeBlurUp}
+            initial="hidden"
+            whileInView="show"
+            viewport={vp}
             className="mt-5 text-center text-xs text-[#9BABC0]"
           >
             Cliquez sur une photo pour l&apos;agrandir
@@ -259,7 +269,6 @@ export function GallerySection() {
         </Container>
       </section>
 
-      {/* Lightbox */}
       <AnimatePresence>
         {lightboxIndex !== null && (
           <Lightbox

@@ -7,6 +7,7 @@ import { Clock3, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { clinic } from "@/data/clinic";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/layout/container";
+import { cardReveal, fadeBlurUp, fadeUp, fadePop, lineExpand, staggerGrid, staggerHeader, vp } from "@/lib/motion";
 
 const whatsappHref = `https://wa.me/${clinic.whatsapp}`;
 const phoneHref = `tel:${clinic.phone.replaceAll(" ", "")}`;
@@ -16,33 +17,42 @@ export function TestimonialsLocationSection() {
     <section id="contact" className="bg-[#F4F7FB] py-16 md:py-20">
       <Container>
 
+        {/* Header cascade */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-8 text-center"
+          variants={staggerHeader}
+          initial="hidden"
+          whileInView="show"
+          viewport={vp}
+          className="mb-10 text-center"
         >
-          <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#CC1B1B]">
+          <motion.p variants={fadePop} className="text-xs font-bold uppercase tracking-[0.24em] text-[#CC1B1B]">
             Nous contacter
-          </p>
-          <h2 className="mt-2 text-3xl font-extrabold text-[#1A3B9C] md:text-4xl">
+          </motion.p>
+          <motion.h2 variants={fadeBlurUp} className="mt-2 text-3xl font-extrabold text-[#1A3B9C] md:text-4xl">
             Prenez rendez-vous
-          </h2>
-          <p className="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-[#5A6E8C]">
+          </motion.h2>
+          <motion.div
+            variants={lineExpand}
+            style={{ originX: 0.5 }}
+            className="mx-auto mt-3 h-0.5 w-14 rounded-full bg-[#CC1B1B]"
+          />
+          <motion.p variants={fadeUp} className="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-[#5A6E8C]">
             Notre équipe est disponible 6j/7 pour vous accueillir et répondre à vos questions.
-          </p>
+          </motion.p>
         </motion.div>
 
-        <div className="grid gap-5 lg:grid-cols-[1fr_1fr_1fr]">
-
+        {/* Cards stagger */}
+        <motion.div
+          variants={staggerGrid}
+          initial="hidden"
+          whileInView="show"
+          viewport={vp}
+          className="grid gap-5 lg:grid-cols-[1fr_1fr_1fr]"
+        >
           {/* Card — Appeler */}
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="rounded-2xl border border-[#D5E2F4] bg-white p-6 shadow-[0_4px_24px_-8px_rgba(26,59,156,0.08)]"
+            variants={cardReveal}
+            className="rounded-2xl border border-[#D5E2F4] bg-white p-6 shadow-[0_4px_24px_-8px_rgba(26,59,156,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_40px_-10px_rgba(26,59,156,0.16)]"
           >
             <span className="flex size-12 items-center justify-center rounded-xl bg-[#EEF3FC] text-[#1A3B9C]">
               <Phone className="size-6" />
@@ -74,13 +84,10 @@ export function TestimonialsLocationSection() {
             </Button>
           </motion.div>
 
-          {/* Card — WhatsApp */}
+          {/* Card — WhatsApp (featured) */}
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.5, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="rounded-2xl border border-[#1A3B9C]/20 bg-[#1A3B9C] p-6 shadow-[0_8px_32px_-8px_rgba(26,59,156,0.35)]"
+            variants={cardReveal}
+            className="rounded-2xl border border-[#1A3B9C]/20 bg-[#1A3B9C] p-6 shadow-[0_8px_40px_-8px_rgba(26,59,156,0.45)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_60px_-10px_rgba(26,59,156,0.55)]"
           >
             <span className="flex size-12 items-center justify-center rounded-xl bg-white/15 text-white">
               <MessageCircle className="size-6" />
@@ -98,13 +105,10 @@ export function TestimonialsLocationSection() {
             </Button>
           </motion.div>
 
-          {/* Card — Adresse + Horaires */}
+          {/* Card — Adresse */}
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.5, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="rounded-2xl border border-[#D5E2F4] bg-white p-6 shadow-[0_4px_24px_-8px_rgba(26,59,156,0.08)]"
+            variants={cardReveal}
+            className="rounded-2xl border border-[#D5E2F4] bg-white p-6 shadow-[0_4px_24px_-8px_rgba(26,59,156,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_40px_-10px_rgba(26,59,156,0.16)]"
           >
             <span className="flex size-12 items-center justify-center rounded-xl bg-[#EEF3FC] text-[#1A3B9C]">
               <MapPin className="size-6" />
@@ -138,8 +142,8 @@ export function TestimonialsLocationSection() {
               </Link>
             </Button>
           </motion.div>
+        </motion.div>
 
-        </div>
       </Container>
     </section>
   );
