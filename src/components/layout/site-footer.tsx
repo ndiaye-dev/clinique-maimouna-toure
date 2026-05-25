@@ -19,9 +19,9 @@ export function SiteFooter() {
             La clinique
           </h3>
           <BrandMark compact className="w-fit [&_img]:h-10 [&_img]:md:h-11 [&_img]:brightness-0 [&_img]:invert [&_img]:opacity-90" />
-          <p className="max-w-xs text-sm leading-relaxed text-white/75">
-            Des soins d&apos;exception, proches de vous. Clinique Maïmouna Touré
-            — Keur Massar, Dakar.
+          <p className="text-sm leading-relaxed text-white/75">
+            Des soins d&apos;exception, proches de vous.<br />
+            Clinique Maïmouna Touré — Keur Massar, Dakar.
           </p>
           <p className="text-[0.65rem] leading-relaxed text-white/45">
             {clinic.licenseBadge}
