@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import { Menu, MessageCircle, Phone } from "lucide-react";
 
 import { clinic } from "@/data/clinic";
@@ -41,6 +42,8 @@ function NavbarLinks({ className = "" }: { className?: string }) {
 }
 
 export function SiteNavbar() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <header className="sticky top-0 z-50 border-b border-[#D5E2F4]/80 bg-white/90 backdrop-blur-md">
       <Container className="flex h-18 items-center justify-between gap-4">
@@ -74,9 +77,14 @@ export function SiteNavbar() {
             </Link>
           </Button>
 
-          <Sheet>
+          <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
             <SheetTrigger asChild>
-              <Button variant="outline" size="icon-sm" aria-label="Ouvrir le menu">
+              <Button
+                variant="outline"
+                size="icon-sm"
+                aria-label="Ouvrir le menu"
+                className={menuOpen ? "pointer-events-none opacity-0" : ""}
+              >
                 <Menu />
               </Button>
             </SheetTrigger>
