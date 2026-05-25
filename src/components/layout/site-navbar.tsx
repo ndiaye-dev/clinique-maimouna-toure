@@ -21,13 +21,14 @@ import { Container } from "@/components/layout/container";
 const phoneHref = `tel:${clinic.phone.replaceAll(" ", "")}`;
 const whatsappHref = `https://wa.me/${clinic.whatsapp}`;
 
-function NavbarLinks({ className = "" }: { className?: string }) {
+function NavbarLinks({ className = "", onLinkClick }: { className?: string; onLinkClick?: () => void }) {
   return (
     <nav className={className} aria-label="Navigation principale">
       {primaryNavigation.map((item) => (
         <Link
           key={item.label}
           href={item.href}
+          onClick={onLinkClick}
           className={`relative text-sm font-semibold transition-colors hover:text-[#1A3B9C] ${
             item.href === "#accueil"
               ? "text-[#1A3B9C] after:absolute after:-bottom-2 after:left-0 after:h-0.5 after:w-full after:rounded-full after:bg-[#CC1B1B]"
@@ -96,7 +97,7 @@ export function SiteNavbar() {
               </SheetHeader>
 
               <div className="flex flex-col gap-6 p-5">
-                <NavbarLinks className="flex flex-col gap-4" />
+                <NavbarLinks className="flex flex-col gap-4" onLinkClick={() => setMenuOpen(false)} />
                 <div className="grid gap-2">
                   <Button
                     asChild
