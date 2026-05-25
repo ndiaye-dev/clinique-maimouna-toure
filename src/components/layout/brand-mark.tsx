@@ -14,12 +14,14 @@ type BrandMarkProps = {
   className?: string;
   showLocation?: boolean;
   compact?: boolean;
+  dark?: boolean;
 };
 
 export function BrandMark({
   className,
   showLocation = true,
   compact = false,
+  dark = false,
 }: BrandMarkProps) {
   const logo =
     logoMap[clinic.brandLogoImage as keyof typeof logoMap] ?? logoClinique;
@@ -29,7 +31,10 @@ export function BrandMark({
 
   return (
     <Link href="/" className={cn("group flex min-w-0 items-center gap-3", className)}>
-      <div className="relative shrink-0">
+      <div className={cn(
+        "relative shrink-0",
+        dark && "rounded-xl bg-white/15 px-3 py-1.5 backdrop-blur-sm ring-1 ring-white/10"
+      )}>
         <Image
           src={displayLogo}
           alt={`Logo ${clinic.name}`}
