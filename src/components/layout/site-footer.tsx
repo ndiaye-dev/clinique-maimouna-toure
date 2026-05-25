@@ -13,9 +13,9 @@ const whatsappHref = `https://wa.me/${clinic.whatsapp}`;
 export function SiteFooter() {
   return (
     <footer className="bg-[#0F2470] text-white">
-      <Container className="grid gap-10 py-14 md:grid-cols-[1.2fr_0.75fr_0.85fr_1fr]">
+      <Container className="grid items-start gap-10 py-14 md:grid-cols-[1.2fr_0.75fr_0.85fr_1fr]">
         <div className="space-y-5">
-          <BrandMark showLocation={false} dark className="w-fit [&_img]:h-9" />
+          <BrandMark dark compact className="w-fit [&_img]:h-10 [&_img]:md:h-11" />
           <p className="max-w-xs text-sm leading-relaxed text-white/75">
             Des soins d&apos;exception, proches de vous. Clinique Maïmouna Touré
             — Keur Massar, Dakar.
