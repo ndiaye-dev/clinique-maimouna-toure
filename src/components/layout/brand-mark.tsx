@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { clinic } from "@/data/clinic";
 import logoClinique from "@/assets/images/logo-clinique.png";
+import logoNavbar from "@/assets/images/logo-navbar.png";
 import { cn } from "@/lib/utils";
 
 const logoMap = {
@@ -23,15 +24,18 @@ export function BrandMark({
   const logo =
     logoMap[clinic.brandLogoImage as keyof typeof logoMap] ?? logoClinique;
 
+  // Navbar (compact) → logo rogné sans marges blanches pour un rendu plus grand et lisible
+  const displayLogo = compact ? logoNavbar : logo;
+
   return (
     <Link href="/" className={cn("group flex min-w-0 items-center gap-3", className)}>
-      <div className="relative shrink-0 overflow-hidden rounded-xl shadow-[0_2px_12px_-3px_rgba(26,59,156,0.18)]">
+      <div className="relative shrink-0">
         <Image
-          src={logo}
+          src={displayLogo}
           alt={`Logo ${clinic.name}`}
-          width={logo.width}
-          height={logo.height}
-          className="h-10 w-auto object-contain md:h-11"
+          width={displayLogo.width}
+          height={displayLogo.height}
+          className="h-12 w-auto object-contain md:h-14"
           priority
         />
       </div>
