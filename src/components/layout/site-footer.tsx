@@ -30,7 +30,7 @@ export function SiteFooter() {
             <Link
               href="#"
               aria-label="Facebook"
-              className="flex size-9 items-center justify-center rounded-full border border-white/20 text-white/70 transition-all hover:border-[#1877F2]/60 hover:bg-[#1877F2]/15 hover:text-white"
+              className="flex size-9 items-center justify-center rounded-full border border-white/30 bg-white/[0.07] text-white/80 transition-all duration-200 hover:border-[#1877F2]/70 hover:bg-[#1877F2]/20 hover:text-white"
             >
               <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
@@ -39,7 +39,7 @@ export function SiteFooter() {
             <Link
               href="#"
               aria-label="Instagram"
-              className="flex size-9 items-center justify-center rounded-full border border-white/20 text-white/70 transition-all hover:border-[#E1306C]/60 hover:bg-[#E1306C]/15 hover:text-white"
+              className="flex size-9 items-center justify-center rounded-full border border-white/30 bg-white/[0.07] text-white/80 transition-all duration-200 hover:border-[#E1306C]/70 hover:bg-[#E1306C]/20 hover:text-white"
             >
               <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
@@ -52,7 +52,7 @@ export function SiteFooter() {
               target="_blank"
               rel="noreferrer"
               aria-label="WhatsApp"
-              className="flex size-9 items-center justify-center rounded-full border border-white/20 text-white/70 transition-all hover:border-[#25D366]/60 hover:bg-[#25D366]/15 hover:text-white"
+              className="flex size-9 items-center justify-center rounded-full border border-white/30 bg-white/[0.07] text-white/80 transition-all duration-200 hover:border-[#25D366]/70 hover:bg-[#25D366]/20 hover:text-white"
             >
               <MessageCircle className="size-4" />
             </Link>
@@ -141,9 +141,9 @@ export function SiteFooter() {
             href={whatsappHref}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#CC1B1B] px-6 py-2.5 text-sm font-semibold text-white shadow-[0_6px_20px_-4px_rgba(204,27,27,0.50)] transition-all hover:-translate-y-0.5 hover:bg-[#b01818] hover:shadow-[0_8px_24px_-4px_rgba(204,27,27,0.55)]"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-[#0F2470] shadow-[0_4px_24px_-6px_rgba(255,255,255,0.22)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/92 hover:shadow-[0_8px_32px_-6px_rgba(255,255,255,0.28)]"
           >
-            <MessageCircle className="size-4" />
+            <MessageCircle className="size-4 text-[#CC1B1B]" />
             Prendre rendez-vous
           </Link>
         </div>
