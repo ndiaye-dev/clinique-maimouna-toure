@@ -41,9 +41,9 @@ const highlightGradients = [
 ];
 
 const floatingStats = [
-  { icon: Users,        value: "12 000+", label: "Patients",     position: "top-6 -right-4" },
-  { icon: CalendarDays, value: "15+",     label: "Ans d'expérience", position: "bottom-24 -right-4" },
-  { icon: Smile,        value: "95 %",    label: "Satisfaction",  position: "-left-4 top-1/2 -translate-y-1/2" },
+  { icon: Users,        value: "12 000+", label: "Patients",        position: "-top-4 right-8" },
+  { icon: CalendarDays, value: "15+",     label: "Ans d'expérience", position: "top-1/2 -right-5 -translate-y-1/2" },
+  { icon: Smile,        value: "95 %",    label: "Satisfaction",    position: "bottom-20 left-6" },
 ];
 
 const phoneHref = `tel:${clinic.phone.replaceAll(" ", "")}`;
@@ -54,7 +54,7 @@ export function AboutClinicSection() {
     exteriorImages[clinic.clinicExteriorImage as keyof typeof exteriorImages] ?? clinicBuilding;
 
   return (
-    <section id="clinique" className="relative isolate overflow-hidden bg-white py-16 md:py-24">
+    <section id="clinique" className="relative isolate overflow-x-clip bg-white py-16 md:py-24">
 
       {/* Fond ambiance */}
       <div className="pointer-events-none absolute inset-0 -z-10">
@@ -64,7 +64,7 @@ export function AboutClinicSection() {
       </div>
 
       <Container>
-        <div className="grid items-center gap-16 lg:grid-cols-2">
+        <div className="grid items-center gap-12 lg:grid-cols-[6fr_5fr] lg:gap-16">
 
           {/* ══ COLONNE GAUCHE — image + floating stats ══ */}
           <motion.div
@@ -72,7 +72,7 @@ export function AboutClinicSection() {
             initial="hidden"
             whileInView="show"
             viewport={vp}
-            className="relative order-2 lg:order-1"
+            className="relative order-2 pt-6 lg:order-1 lg:pt-0"
           >
             {/* Décoration fond */}
             <div className="absolute -left-6 -top-6 h-full w-full rounded-3xl bg-gradient-to-br from-[#EEF3FC] to-[#D5E2F4]/60" />
@@ -85,7 +85,7 @@ export function AboutClinicSection() {
                   src={exteriorImage}
                   alt="Facade de la Clinique Maimouna Touré"
                   fill
-                  className="object-cover object-center [filter:contrast(1.04)_saturate(1.05)]"
+                  className="object-cover object-top [filter:contrast(1.04)_saturate(1.05)]"
                   sizes="(min-width: 1024px) 50vw, 100vw"
                 />
                 {/* Overlay dégradé bas */}
@@ -155,7 +155,7 @@ export function AboutClinicSection() {
 
               <motion.p
                 variants={fadeUp}
-                className="max-w-lg text-[0.97rem] leading-[1.8] text-[#5A6E8C]"
+                className="max-w-lg text-[0.97rem] leading-[1.8] text-[#5A6E8C] text-pretty"
               >
                 {clinic.presentation.description}
               </motion.p>
