@@ -22,7 +22,7 @@ import { clinic } from "@/data/clinic";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/layout/container";
 import {
-  fadeBlurUp, fadeUp, fadePop, cardReveal,
+  fadeBlurUp, fadeUp, fadePop, cardReveal, scaleReveal,
   slideLeft, staggerGrid, staggerHeader, lineExpand, vp,
 } from "@/lib/motion";
 
@@ -54,7 +54,7 @@ export function AboutClinicSection() {
     exteriorImages[clinic.clinicExteriorImage as keyof typeof exteriorImages] ?? clinicBuilding;
 
   return (
-    <section id="clinique" className="relative isolate overflow-x-clip bg-white py-16 md:py-24">
+    <section id="clinique" className="relative isolate overflow-hidden bg-white pb-16 pt-8 md:pb-24 md:pt-10">
 
       {/* Fond ambiance */}
       <div className="pointer-events-none absolute inset-0 -z-10">
@@ -105,10 +105,11 @@ export function AboutClinicSection() {
             {floatingStats.map(({ icon: Icon, value, label, position }, i) => (
               <motion.div
                 key={label}
-                initial={{ opacity: 0, scale: 0.8, y: 10 }}
-                whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.4 + i * 0.12, ease: [0.22, 1, 0.36, 1] as const }}
+                variants={scaleReveal}
+                initial="hidden"
+                whileInView="show"
+                viewport={vp}
+                transition={{ delay: 0.3 + i * 0.14 } as never}
                 className={`absolute ${position} z-10 flex items-center gap-2.5 rounded-2xl border border-[#D5E2F4] bg-white px-3.5 py-2.5 shadow-[0_8px_32px_-8px_rgba(26,59,156,0.22)]`}
               >
                 <span className="flex size-8 items-center justify-center rounded-xl bg-[#EEF3FC] text-[#1A3B9C]">

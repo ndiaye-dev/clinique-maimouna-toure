@@ -6,7 +6,7 @@ import { ChevronDown, MessageCircle } from "lucide-react";
 
 import { Container } from "@/components/layout/container";
 import { clinic } from "@/data/clinic";
-import { cardReveal, fadeBlurUp, fadeUp, fadePop, lineExpand, staggerGrid, staggerHeader, vp } from "@/lib/motion";
+import { cardReveal, fadeBlurUp, fadeUp, fadePop, lineExpand, riseUp, staggerGrid, staggerHeader, vp } from "@/lib/motion";
 
 const whatsappHref = `https://wa.me/${clinic.whatsapp}`;
 
@@ -53,7 +53,7 @@ function FaqItem({ faq, index }: { faq: (typeof faqs)[0]; index: number }) {
 
   return (
     <motion.div
-      variants={fadeUp}
+      variants={riseUp}
       className="overflow-hidden rounded-2xl border border-[#D5E2F4] bg-white shadow-[0_2px_12px_-4px_rgba(26,59,156,0.07)] transition-shadow duration-300 hover:shadow-[0_8px_28px_-6px_rgba(26,59,156,0.14)]"
     >
       <button

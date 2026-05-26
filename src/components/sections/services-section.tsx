@@ -30,7 +30,7 @@ import pediatricsImage from "@/assets/images/services/pediatrie.jpg";
 import { Container } from "@/components/layout/container";
 import { clinic } from "@/data/clinic";
 import type { ServiceIconName, ServiceImageName } from "@/types/clinic";
-import { cardReveal, fadeBlurUp, fadeUp, fadePop, lineExpand, staggerGrid, staggerHeader, vp } from "@/lib/motion";
+import { cardReveal, fadeBlurUp, fadeUp, fadePop, lineExpand, scaleReveal, staggerGrid, staggerHeader, vp } from "@/lib/motion";
 
 const iconMap: Record<ServiceIconName, ComponentType<{ className?: string }>> = {
   stethoscope: Stethoscope,

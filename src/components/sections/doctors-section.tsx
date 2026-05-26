@@ -7,7 +7,7 @@ import { clinic } from "@/data/clinic";
 import { Container } from "@/components/layout/container";
 import medecinsBannerImg from "@/assets/images/gallery/doctor-office.jpg";
 import { SectionBanner } from "@/components/ui/section-banner";
-import { cardReveal, fadeBlurUp, fadeUp, fadePop, lineExpand, slideLeft, staggerHeader, vp } from "@/lib/motion";
+import { cardReveal, fadeBlurUp, fadeUp, fadePop, lineExpand, slideLeft, slideRight, staggerHeader, vp } from "@/lib/motion";
 
 export function DoctorsSection() {
   return (
@@ -47,11 +47,11 @@ export function DoctorsSection() {
           {clinic.doctors.map((doctor, index) => (
             <motion.div
               key={doctor.name}
-              variants={slideLeft}
+              variants={index % 2 === 0 ? slideLeft : slideRight}
               initial="hidden"
               whileInView="show"
               viewport={vp}
-              transition={{ delay: index * 0.1 } as never}
+              transition={{ delay: index * 0.08 } as never}
               className="overflow-hidden rounded-2xl border border-[#D5E2F4] bg-white shadow-[0_4px_24px_-8px_rgba(26,59,156,0.10)] transition-all duration-300 hover:border-[#1A3B9C]/25 hover:shadow-[0_16px_48px_-12px_rgba(26,59,156,0.2)]"
             >
               <div className="h-[3px] w-full bg-gradient-to-r from-[#CC1B1B] via-[#2D52B8] to-[#1A3B9C]" />
