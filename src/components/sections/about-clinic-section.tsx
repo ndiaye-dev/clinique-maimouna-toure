@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { BadgeCheck, HeartHandshake, Lock, ShieldCheck, Stethoscope } from "lucide-react";
+import { BadgeCheck, HeartHandshake, Lock, MessageCircle, ShieldCheck, Stethoscope } from "lucide-react";
 
 import clinicBuilding from "@/assets/images/clinic-building.png";
 import clinicFacade from "@/assets/images/clinique-maimouna-toure-facade.png";
@@ -86,7 +86,7 @@ export function AboutClinicSection() {
               </motion.p>
               <motion.h2
                 variants={fadeBlurUp}
-                className="mt-3 max-w-md text-3xl font-extrabold leading-tight text-[#1A3B9C] md:text-4xl"
+                className="mt-3 text-3xl font-extrabold leading-tight text-[#1A3B9C] md:text-4xl"
               >
                 {clinic.presentation.title}
               </motion.h2>
@@ -120,7 +120,7 @@ export function AboutClinicSection() {
                     className="rounded-xl border border-[#D5E2F4] bg-[#F4F7FB] p-4 transition-colors hover:border-[#1A3B9C]/25 hover:bg-[#EEF3FC]"
                   >
                     <div className="flex items-start gap-3">
-                      <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-white text-[#1A3B9C] shadow-sm ring-1 ring-[#D5E2F4]">
+                      <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-[#EEF3FC] text-[#1A3B9C] shadow-sm ring-1 ring-[#D5E2F4]">
                         <Icon className="size-4" />
                       </span>
                       <div>
@@ -141,9 +141,12 @@ export function AboutClinicSection() {
             >
               <Button
                 asChild
-                className="h-11 bg-[#1A3B9C] px-6 text-white shadow-[0_8px_24px_-12px_rgba(26,59,156,0.5)] hover:bg-[#0F2470]"
+                className="h-12 gap-2 rounded-full bg-[#1A3B9C] px-8 text-sm font-semibold text-white shadow-[0_8px_32px_-8px_rgba(26,59,156,0.45)] transition-all hover:-translate-y-0.5 hover:bg-[#0F2470] hover:shadow-[0_12px_36px_-8px_rgba(26,59,156,0.55)]"
               >
-                <Link href="#contact">Prendre rendez-vous</Link>
+                <Link href="#contact">
+                  <MessageCircle className="size-4" />
+                  Prendre rendez-vous
+                </Link>
               </Button>
             </motion.div>
           </div>
