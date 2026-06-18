@@ -64,7 +64,7 @@ export function AboutClinicSection() {
       </div>
 
       <Container>
-        <div className="grid items-center gap-12 lg:grid-cols-[6fr_5fr] lg:gap-16">
+        <div className="grid items-center gap-12 lg:grid-cols-[5fr_6fr] lg:gap-14">
 
           {/* ══ COLONNE GAUCHE — image + floating stats ══ */}
           <motion.div
