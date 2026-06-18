@@ -195,7 +195,7 @@ export function HeroSection() {
       </div>
 
       <Container className="max-w-none px-4 sm:px-6 lg:px-[4vw]">
-        <div className="grid items-end gap-8 pb-8 pt-10 lg:grid-cols-[1fr_1fr] lg:gap-14 lg:pb-8 lg:pt-12">
+        <div className="grid items-center gap-8 pb-8 pt-10 lg:grid-cols-[1fr_1fr] lg:gap-14 lg:pb-8 lg:pt-12">
 
           {/* ══ COLONNE GAUCHE ══ */}
           <motion.div
