@@ -143,7 +143,7 @@ export function AboutClinicSection() {
 
               <motion.h2
                 variants={fadeBlurUp}
-                className="text-3xl font-extrabold leading-[1.1] tracking-[-0.01em] text-[#0D1B4B] md:text-4xl lg:text-[2.6rem]"
+                className="text-3xl font-extrabold leading-[1.1] tracking-[-0.01em] text-[#0D1B4B] md:text-4xl lg:text-[2.1rem]"
               >
                 {clinic.presentation.title}
               </motion.h2>
@@ -156,7 +156,7 @@ export function AboutClinicSection() {
 
               <motion.p
                 variants={fadeUp}
-                className="max-w-lg text-[0.97rem] leading-[1.8] text-[#5A6E8C] text-pretty"
+                className="max-w-[460px] text-[0.97rem] leading-[1.8] text-[#5A6E8C] text-pretty"
               >
                 {clinic.presentation.description}
               </motion.p>
@@ -168,7 +168,7 @@ export function AboutClinicSection() {
               initial="hidden"
               whileInView="show"
               viewport={vp}
-              className="grid gap-3 sm:grid-cols-2"
+              className="grid gap-3 grid-cols-1 sm:grid-cols-2"
             >
               {clinic.presentation.highlights.map((item, index) => {
                 const Icon = highlightIcons[index] ?? BadgeCheck;
