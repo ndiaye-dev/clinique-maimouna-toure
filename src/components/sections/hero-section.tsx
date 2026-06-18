@@ -195,7 +195,7 @@ export function HeroSection() {
       </div>
 
       <Container className="max-w-none px-4 sm:px-6 lg:px-[4vw]">
-        <div className="grid items-center gap-8 pb-8 pt-10 lg:grid-cols-[1fr_1fr] lg:gap-14 lg:pb-8 lg:pt-12">
+        <div className="grid items-stretch gap-8 pb-8 pt-10 lg:grid-cols-[1fr_1fr] lg:gap-14 lg:pb-8 lg:pt-12">
 
           {/* ══ COLONNE GAUCHE ══ */}
           <motion.div
@@ -272,7 +272,7 @@ export function HeroSection() {
             {/* Bandeau stats */}
             <motion.div
               variants={fadeUp}
-              className="mt-10 overflow-hidden rounded-2xl border border-[#E8EEF8] bg-white shadow-[0_4px_24px_-6px_rgba(26,59,156,0.09)]"
+              className="mt-auto overflow-hidden rounded-2xl border border-[#E8EEF8] bg-white shadow-[0_4px_24px_-6px_rgba(26,59,156,0.09)]"
             >
               <div className="h-[3px] w-full bg-gradient-to-r from-[#CC1B1B] via-[#2D52B8] to-[#1A3B9C]" />
               <div className="grid grid-cols-4">
