@@ -15,8 +15,10 @@ import {
 
 import clinicBuilding from "@/assets/images/clinic-building.png";
 import clinicFacade from "@/assets/images/clinique-maimouna-toure-facade.png";
+import aboutBannerImg from "@/assets/images/banners/medecins-banner.jpg";
 import { clinic } from "@/data/clinic";
 import { Container } from "@/components/layout/container";
+import { SectionBanner } from "@/components/ui/section-banner";
 import {
   fadeBlurUp, fadeUp, fadePop, cardReveal, scaleReveal,
   slideLeft, staggerGrid, staggerHeader, lineExpand, vp,
@@ -42,15 +44,25 @@ const floatingStats = [
   { icon: Smile,        value: "95 %",    label: "Satisfaction",    position: "bottom-20 left-6" },
 ];
 
-const phoneHref = `tel:${clinic.phone.replaceAll(" ", "")}`;
-const whatsappHref = `https://wa.me/${clinic.whatsapp}`;
-
 export function AboutClinicSection() {
   const exteriorImage =
     exteriorImages[clinic.clinicExteriorImage as keyof typeof exteriorImages] ?? clinicBuilding;
 
   return (
-    <section id="clinique" className="relative isolate overflow-hidden bg-white pb-16 pt-8 md:pb-24 md:pt-10">
+    <section id="clinique" className="relative isolate overflow-hidden bg-white pb-16 md:pb-24">
+
+      {/* Fondu blanc au-dessus de la bannière — invisible depuis le Hero */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-16 bg-gradient-to-b from-white to-transparent" />
+
+      <SectionBanner
+        title="À propos de nous"
+        subtitle="Une clinique engagée pour votre santé et votre bien-être"
+        image={aboutBannerImg}
+        imageAlt="Équipe médicale de la Clinique Maïmouna Touré"
+        imagePosition="50% 30%"
+        breadcrumb="À propos"
+        className="h-[160px] md:h-[200px]"
+      />
 
       {/* Fond ambiance */}
       <div className="pointer-events-none absolute inset-0 -z-10">
@@ -59,8 +71,8 @@ export function AboutClinicSection() {
         <div className="absolute inset-0 opacity-[0.014] [background-image:linear-gradient(#1A3B9C_1px,transparent_1px),linear-gradient(90deg,#1A3B9C_1px,transparent_1px)] [background-size:56px_56px]" />
       </div>
 
-      <Container className="lg:px-16 xl:px-20">
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+      <Container className="pt-10 md:pt-12">
+        <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-20">
 
           {/* ══ COLONNE GAUCHE — image + floating stats ══ */}
           <motion.div
@@ -68,7 +80,7 @@ export function AboutClinicSection() {
             initial="hidden"
             whileInView="show"
             viewport={vp}
-            className="relative order-2 pt-6 lg:order-1 lg:pt-0"
+            className="relative order-2 pt-6 lg:order-1 lg:pt-6"
           >
             {/* Décoration fond */}
             <div className="absolute -top-5 left-0 h-full w-full rounded-3xl bg-gradient-to-br from-[#EEF3FC] to-[#D5E2F4]/60" />
@@ -130,13 +142,6 @@ export function AboutClinicSection() {
               viewport={vp}
               className="space-y-3"
             >
-              <motion.p
-                variants={fadePop}
-                className="text-xs font-bold uppercase tracking-[0.28em] text-[#CC1B1B]"
-              >
-                &Agrave; propos de nous
-              </motion.p>
-
               <motion.h2
                 variants={fadeBlurUp}
                 className="text-3xl font-extrabold leading-[1.1] tracking-[-0.01em] text-[#0D1B4B] md:text-4xl lg:text-[2.1rem]"

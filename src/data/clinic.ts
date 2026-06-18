@@ -57,6 +57,14 @@ export const clinic: ClinicProfile = {
       imageAlt: "Consultation de médecine générale dans un cadre médical rassurant",
       imagePosition: "50% 47%",
       ctaLabel: "Voir la médecine générale",
+      details: [
+        "Consultations médicales pour adultes et enfants",
+        "Suivi des maladies chroniques (hypertension, diabète, asthme…)",
+        "Prescriptions et renouvellements d'ordonnances",
+        "Certificats médicaux, bilans de santé et aptitude",
+        "Orientation vers des spécialistes si nécessaire",
+        "Prise en charge des urgences médicales courantes",
+      ],
     },
     {
       title: "Gynécologie",
@@ -68,6 +76,14 @@ export const clinic: ClinicProfile = {
       imageAlt: "Consultation gynécologique et accompagnement de la femme",
       imagePosition: "50% 45%",
       ctaLabel: "Découvrir la gynécologie",
+      details: [
+        "Consultations gynécologiques de routine et de prévention",
+        "Suivi de grossesse et consultations prénatales",
+        "Planification familiale et conseils en contraception",
+        "Dépistage des infections et maladies gynécologiques",
+        "Frottis cervical et bilans féminins",
+        "Accompagnement personnalisé et écoute bienveillante",
+      ],
     },
     {
       title: "Pédiatrie",
@@ -79,6 +95,14 @@ export const clinic: ClinicProfile = {
       imageAlt: "Consultation pédiatrique pour enfant à la clinique",
       imagePosition: "50% 46%",
       ctaLabel: "Découvrir la pédiatrie",
+      details: [
+        "Consultations pour nourrissons, enfants et adolescents",
+        "Suivi de croissance et de développement",
+        "Vaccinations selon le calendrier national",
+        "Prise en charge des maladies infantiles courantes",
+        "Conseils nutritionnels et de puériculture",
+        "Bilans de santé scolaire et sportif",
+      ],
     },
     {
       title: "Échographie générale",
@@ -89,6 +113,14 @@ export const clinic: ClinicProfile = {
       imageAlt: "Espace médical moderne pour les examens d'échographie",
       imagePosition: "52% 50%",
       ctaLabel: "Voir le service d'échographie",
+      details: [
+        "Échographie abdominale et pelvienne",
+        "Échographie obstétricale (suivi de grossesse)",
+        "Échographie thyroïdienne et des parties molles",
+        "Échographie cardiaque et vasculaire",
+        "Résultats disponibles le jour même",
+        "Matériel moderne et personnel qualifié",
+      ],
     },
     {
       title: "Accouchement",
@@ -99,6 +131,14 @@ export const clinic: ClinicProfile = {
       imageAlt: "Accompagnement maternité et suivi après la naissance",
       imagePosition: "50% 48%",
       ctaLabel: "En savoir plus",
+      details: [
+        "Suivi prénatal complet tout au long de la grossesse",
+        "Salle d'accouchement équipée et sécurisée",
+        "Accouchement assisté par des sages-femmes qualifiées",
+        "Prise en charge des accouchements normaux et à risque",
+        "Soins post-partum pour la mère et le nouveau-né",
+        "Accompagnement familial et soutien émotionnel",
+      ],
     },
     {
       title: "Planification familiale",
@@ -109,6 +149,14 @@ export const clinic: ClinicProfile = {
       imageAlt: "Conseil familial et accompagnement médical personnalisé",
       imagePosition: "64% 48%",
       ctaLabel: "Voir la planification familiale",
+      details: [
+        "Conseil et orientation en matière de contraception",
+        "Pose de dispositifs intra-utérins (DIU) et implants",
+        "Information sur les méthodes contraceptives naturelles",
+        "Suivi et contrôle des méthodes utilisées",
+        "Consultations confidentielles et bienveillantes",
+        "Accompagnement des couples dans leurs projets de vie",
+      ],
     },
   ],
   additionalServices: [
@@ -147,9 +195,9 @@ export const clinic: ClinicProfile = {
       slug: "specialites-medico-chirurgicales",
       description: "Orientation spécialisée selon les besoins médicaux du patient.",
       icon: "stethoscope",
-      image: "clinicExterior",
-      imageAlt: "Spécialités médico-chirurgicales à la clinique",
-      imagePosition: "52% 45%",
+      image: "surgicalRoom",
+      imageAlt: "Salle d'examen médical pour les spécialités chirurgicales",
+      imagePosition: "50% 40%",
       ctaLabel: "Voir les spécialités",
     },
     {
@@ -232,8 +280,9 @@ export const clinic: ClinicProfile = {
   locationInfo: {
     title: "Keur Massar - Dakar, Sénégal",
     address: "Keur Massar MTO 11, Dakar",
-    landmark: "Près de la mosquée de Keur Massar",
+    landmark: "Près de la gendarmerie de Keur Massar",
     mapLabel: "Keur Massar MTO 11",
+    mapsUrl: "https://maps.app.goo.gl/pDbjYcAouxfSnzwLA",
   },
   doctors: [
     {

@@ -14,6 +14,7 @@ import {
   Stethoscope,
   Users,
   Venus,
+  ChevronRight,
 } from "lucide-react";
 
 import clinicBuildingImage from "@/assets/images/clinic-building.png";
@@ -27,6 +28,7 @@ import ultrasoundImage from "@/assets/images/services/echographie.jpg";
 import gynecologyImage from "@/assets/images/services/gynecologie.jpg";
 import generalMedicineImage from "@/assets/images/services/medecine-generale.jpg";
 import pediatricsImage from "@/assets/images/services/pediatrie.jpg";
+import surgicalRoomImage from "@/assets/images/gallery/exam-room.jpg";
 import { Container } from "@/components/layout/container";
 import { clinic } from "@/data/clinic";
 import type { ServiceIconName, ServiceImageName } from "@/types/clinic";
@@ -54,6 +56,7 @@ const imageMap = {
   birth: birthImage,
   diabetes: diabetesImage,
   labTests: labTestsImage,
+  surgicalRoom: surgicalRoomImage,
 } satisfies Record<ServiceImageName, typeof heroFamilyImage>;
 
 export function ServicesSection() {
@@ -110,42 +113,50 @@ export function ServicesSection() {
               <motion.article
                 key={service.slug}
                 variants={cardReveal}
-                className="group flex flex-col overflow-hidden rounded-2xl border border-[#D5E2F4] bg-white shadow-[0_4px_24px_-8px_rgba(26,59,156,0.08)] transition-all duration-300 hover:-translate-y-1.5 hover:border-[#1A3B9C]/30 hover:shadow-[0_16px_48px_-12px_rgba(26,59,156,0.22)]"
               >
-                <div className="h-1 w-full bg-gradient-to-r from-[#CC1B1B] to-[#1A3B9C]" />
-
-                <div
-                  role="img"
-                  aria-label={service.imageAlt}
-                  className="relative aspect-[16/8] bg-[#EEF3FC] bg-cover overflow-hidden"
-                  style={{
-                    backgroundImage: `url(${serviceImage.src})`,
-                    backgroundPosition: service.imagePosition ?? "50% 50%",
-                  }}
+                <Link
+                  href={`/services/${service.slug}`}
+                  className="group flex h-full flex-col overflow-hidden rounded-2xl border border-[#D5E2F4] bg-white shadow-[0_4px_24px_-8px_rgba(26,59,156,0.08)] transition-all duration-300 hover:-translate-y-1.5 hover:border-[#1A3B9C]/30 hover:shadow-[0_16px_48px_-12px_rgba(26,59,156,0.22)]"
                 >
-                  <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_40%,rgba(15,36,112,0.12)_100%)] transition-opacity duration-300 group-hover:opacity-0" />
-                  <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_30%,rgba(15,36,112,0.22)_100%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                  <div className="absolute bottom-3 left-5 flex size-12 items-center justify-center rounded-full bg-gradient-to-br from-[#1A3B9C] to-[#0F2470] text-white shadow-[0_6px_20px_-6px_rgba(26,59,156,0.6)] transition-transform duration-300 group-hover:scale-110">
-                    <Icon className="size-5" />
-                  </div>
-                </div>
+                  <div className="h-1 w-full bg-gradient-to-r from-[#CC1B1B] to-[#1A3B9C]" />
 
-                <div className="flex flex-1 flex-col px-6 pb-6 pt-5">
-                  <h3 className="font-serif text-[1.25rem] font-black leading-tight text-[#1A3B9C]">
-                    {service.title}
-                  </h3>
-                  <motion.span
-                    initial={{ scaleX: 0 }}
-                    whileInView={{ scaleX: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] as const, delay: 0.2 }}
-                    style={{ originX: 0 }}
-                    className="mt-2 block h-0.5 w-8 rounded-full bg-[#CC1B1B]"
-                  />
-                  <p className="mt-2.5 flex-1 text-sm leading-6 text-[#5A6E8C]">
-                    {service.description}
-                  </p>
-                </div>
+                  <div
+                    role="img"
+                    aria-label={service.imageAlt}
+                    className="relative aspect-[16/8] bg-[#EEF3FC] bg-cover overflow-hidden"
+                    style={{
+                      backgroundImage: `url(${serviceImage.src})`,
+                      backgroundPosition: service.imagePosition ?? "50% 50%",
+                    }}
+                  >
+                    <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_40%,rgba(15,36,112,0.12)_100%)] transition-opacity duration-300 group-hover:opacity-0" />
+                    <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_30%,rgba(15,36,112,0.22)_100%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                    <div className="absolute bottom-3 left-5 flex size-12 items-center justify-center rounded-full bg-gradient-to-br from-[#1A3B9C] to-[#0F2470] text-white shadow-[0_6px_20px_-6px_rgba(26,59,156,0.6)] transition-transform duration-300 group-hover:scale-110">
+                      <Icon className="size-5" />
+                    </div>
+                  </div>
+
+                  <div className="flex flex-1 flex-col px-6 pb-6 pt-5">
+                    <h3 className="font-serif text-[1.25rem] font-black leading-tight text-[#1A3B9C]">
+                      {service.title}
+                    </h3>
+                    <motion.span
+                      initial={{ scaleX: 0 }}
+                      whileInView={{ scaleX: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] as const, delay: 0.2 }}
+                      style={{ originX: 0 }}
+                      className="mt-2 block h-0.5 w-8 rounded-full bg-[#CC1B1B]"
+                    />
+                    <p className="mt-2.5 flex-1 text-sm leading-6 text-[#5A6E8C]">
+                      {service.description}
+                    </p>
+                    <span className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-[#1A3B9C] transition-gap group-hover:gap-2">
+                      {service.ctaLabel}
+                      <ChevronRight className="size-3.5 transition-transform duration-200 group-hover:translate-x-1" />
+                    </span>
+                  </div>
+                </Link>
               </motion.article>
             );
           })}
@@ -169,13 +180,14 @@ export function ServicesSection() {
             {clinic.additionalServices.map((service) => {
               const Icon = iconMap[service.icon];
               return (
-                <span
+                <Link
                   key={service.slug}
+                  href={`/services/${service.slug}`}
                   className="inline-flex items-center gap-1.5 rounded-full border border-[#D5E2F4] bg-[#EEF3FC] px-4 py-2 text-sm font-semibold text-[#1A3B9C] transition-all duration-200 hover:border-[#1A3B9C]/40 hover:bg-white hover:shadow-sm"
                 >
                   <Icon className="size-3.5 text-[#CC1B1B]" />
                   {service.title}
-                </span>
+                </Link>
               );
             })}
           </div>

@@ -124,12 +124,18 @@ export function SiteFooter() {
                 <Mail className="size-4 shrink-0 text-white/80" />
                 {clinic.email}
               </Link>
-              <p className="flex items-start gap-2.5">
+              <Link
+                href={clinic.locationInfo.mapsUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-start gap-2.5 transition-colors hover:text-white"
+              >
                 <MapPin className="mt-0.5 size-4 shrink-0 text-white/80" />
-                {clinic.locationInfo.address}
-                <br />
-                {clinic.locationInfo.landmark}
-              </p>
+                <span>
+                  {clinic.locationInfo.address}<br />
+                  {clinic.locationInfo.landmark}
+                </span>
+              </Link>
               <p className="flex items-center gap-2.5">
                 <Clock3 className="size-4 shrink-0 text-white/80" />
                 {clinic.openingHours.weekdays}

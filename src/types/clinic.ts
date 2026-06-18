@@ -35,7 +35,8 @@ export type ServiceImageName =
   | "ultrasound"
   | "birth"
   | "diabetes"
-  | "labTests";
+  | "labTests"
+  | "surgicalRoom";
 
 export type ClinicService = {
   title: string;
@@ -46,6 +47,7 @@ export type ClinicService = {
   imageAlt: string;
   imagePosition?: string;
   ctaLabel: string;
+  details?: string[];
 };
 
 export type ClinicCommitment = {
@@ -81,6 +83,7 @@ export type ClinicLocation = {
   address: string;
   landmark: string;
   mapLabel: string;
+  mapsUrl: string;
 };
 
 export type ClinicProfile = {

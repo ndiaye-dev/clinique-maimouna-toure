@@ -137,7 +137,7 @@ export function TestimonialsLocationSection() {
               variant="outline"
               className="mt-5 w-full border-[#1A3B9C]/30 text-[#1A3B9C] hover:bg-[#EEF3FC]"
             >
-              <Link href="https://maps.google.com/?q=Keur+Massar+MTO+11+Dakar" target="_blank">
+              <Link href={clinic.locationInfo.mapsUrl} target="_blank" rel="noreferrer">
                 Voir sur la carte
               </Link>
             </Button>

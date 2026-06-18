@@ -11,6 +11,7 @@ type SectionBannerProps = {
   imageAlt: string;
   imagePosition?: string;
   breadcrumb: string;
+  className?: string;
 };
 
 export function SectionBanner({
@@ -20,9 +21,10 @@ export function SectionBanner({
   imageAlt,
   imagePosition = "50% 50%",
   breadcrumb,
+  className,
 }: SectionBannerProps) {
   return (
-    <div className="relative h-[220px] w-full overflow-hidden md:h-[280px]">
+    <div className={`relative h-[220px] w-full overflow-hidden md:h-[280px] ${className ?? ""}`}>
       {/* Image pleine largeur */}
       <Image
         src={image}
