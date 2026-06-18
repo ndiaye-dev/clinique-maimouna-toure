@@ -137,7 +137,7 @@ function HeroSlider({ className }: { className?: string }) {
           </div>
 
           {/* Carte Horaires */}
-          <div className="absolute bottom-[14%] left-[8%] w-36 rounded-xl border border-white/12 bg-white/90 px-3 py-2.5 shadow-[0_8px_28px_-6px_rgba(13,27,75,0.20)] backdrop-blur-md">
+          <div className="absolute bottom-4 left-4 w-36 rounded-xl border border-white/12 bg-white/90 px-3 py-2.5 shadow-[0_8px_28px_-6px_rgba(13,27,75,0.20)] backdrop-blur-md">
             <p className="flex items-center gap-1.5 text-[0.67rem] font-black text-[#1A3B9C]">
               <Clock3 className="size-3" />
               Horaires
