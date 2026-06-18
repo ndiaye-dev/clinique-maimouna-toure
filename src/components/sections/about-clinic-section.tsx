@@ -1,15 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   BadgeCheck,
   CalendarDays,
   HeartHandshake,
   Lock,
-  MessageCircle,
-  Phone,
   ShieldCheck,
   Smile,
   Stethoscope,
@@ -19,7 +16,6 @@ import {
 import clinicBuilding from "@/assets/images/clinic-building.png";
 import clinicFacade from "@/assets/images/clinique-maimouna-toure-facade.png";
 import { clinic } from "@/data/clinic";
-import { Button } from "@/components/ui/button";
 import { Container } from "@/components/layout/container";
 import {
   fadeBlurUp, fadeUp, fadePop, cardReveal, scaleReveal,
@@ -196,35 +192,6 @@ export function AboutClinicSection() {
               })}
             </motion.ul>
 
-            {/* CTA */}
-            <motion.div
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="show"
-              viewport={vp}
-              className="flex flex-wrap items-center gap-3"
-            >
-              <Button
-                asChild
-                className="h-12 gap-2 rounded-full bg-[#1A3B9C] px-8 text-sm font-semibold text-white shadow-[0_8px_32px_-8px_rgba(26,59,156,0.45)] transition-all hover:-translate-y-0.5 hover:bg-[#0F2470] hover:shadow-[0_12px_36px_-8px_rgba(26,59,156,0.55)]"
-              >
-                <Link href={whatsappHref} target="_blank" rel="noreferrer">
-                  <MessageCircle className="size-4" />
-                  Prendre rendez-vous
-                </Link>
-              </Button>
-
-              <Button
-                asChild
-                variant="outline"
-                className="h-12 gap-2 rounded-full border-[#1A3B9C]/25 px-7 text-sm font-semibold text-[#1A3B9C] transition-all hover:-translate-y-0.5 hover:border-[#1A3B9C] hover:bg-[#1A3B9C] hover:text-white"
-              >
-                <Link href={phoneHref}>
-                  <Phone className="size-4" />
-                  Appeler
-                </Link>
-              </Button>
-            </motion.div>
 
           </div>
         </div>
