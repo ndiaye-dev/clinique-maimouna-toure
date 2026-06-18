@@ -64,7 +64,7 @@ export function AboutClinicSection() {
       </div>
 
       <Container>
-        <div className="grid items-center gap-12 lg:grid-cols-[6fr_5fr] lg:gap-14">
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
 
           {/* ══ COLONNE GAUCHE — image + floating stats ══ */}
           <motion.div
@@ -75,8 +75,8 @@ export function AboutClinicSection() {
             className="relative order-2 pt-6 lg:order-1 lg:pt-0"
           >
             {/* Décoration fond */}
-            <div className="absolute -left-6 -top-6 h-full w-full rounded-3xl bg-gradient-to-br from-[#EEF3FC] to-[#D5E2F4]/60" />
-            <div className="absolute -left-3 -top-3 h-full w-full rounded-3xl border border-[#D5E2F4]/70" />
+            <div className="absolute -top-5 left-0 h-full w-full rounded-3xl bg-gradient-to-br from-[#EEF3FC] to-[#D5E2F4]/60" />
+            <div className="absolute -top-2.5 left-0 h-full w-full rounded-3xl border border-[#D5E2F4]/70" />
 
             {/* Card image principale */}
             <div className="relative overflow-hidden rounded-3xl border border-[#D5E2F4] bg-white shadow-[0_32px_80px_-20px_rgba(26,59,156,0.22)]">
@@ -168,7 +168,7 @@ export function AboutClinicSection() {
               initial="hidden"
               whileInView="show"
               viewport={vp}
-              className="grid gap-3 grid-cols-1 sm:grid-cols-2"
+              className="grid gap-3 sm:grid-cols-2"
             >
               {clinic.presentation.highlights.map((item, index) => {
                 const Icon = highlightIcons[index] ?? BadgeCheck;
