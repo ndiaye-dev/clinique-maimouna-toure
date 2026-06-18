@@ -17,7 +17,6 @@ import {
 
 import heroFamilyImage from "@/assets/images/clinic-hero-family.png";
 import servicesBannerImg from "@/assets/images/banners/services-banner.jpg";
-import galerieBannerImg from "@/assets/images/banners/galerie-banner.jpg";
 import facadeImg from "@/assets/images/gallery/facade.jpg";
 import infirmierPatientImg from "@/assets/images/slider/infirmiere-patient.jpg";
 import { Container } from "@/components/layout/container";
@@ -39,12 +38,6 @@ const slides = [
     alt: "Médecin spécialiste en consultation",
     caption: "Expertise médicale confirmée",
     position: "50% 40%",
-  },
-  {
-    src: galerieBannerImg,
-    alt: "Salle moderne et bien équipée",
-    caption: "Installations de qualité",
-    position: "50% 50%",
   },
   {
     src: infirmierPatientImg,
@@ -202,7 +195,7 @@ export function HeroSection() {
       </div>
 
       <Container className="max-w-none px-4 sm:px-6 lg:px-[4vw]">
-        <div className="grid items-end gap-8 py-10 lg:grid-cols-[1fr_1fr] lg:gap-7 lg:py-12">
+        <div className="grid items-end gap-8 pb-8 pt-10 lg:grid-cols-[1fr_1fr] lg:gap-7 lg:pb-8 lg:pt-12">
 
           {/* ══ COLONNE GAUCHE ══ */}
           <motion.div
