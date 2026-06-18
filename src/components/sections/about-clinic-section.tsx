@@ -64,7 +64,7 @@ export function AboutClinicSection() {
       </div>
 
       <Container>
-        <div className="grid items-center gap-12 lg:grid-cols-[5fr_6fr] lg:gap-14">
+        <div className="grid items-center gap-12 lg:grid-cols-[6fr_5fr] lg:gap-14">
 
           {/* ══ COLONNE GAUCHE — image + floating stats ══ */}
           <motion.div
@@ -80,7 +80,7 @@ export function AboutClinicSection() {
 
             {/* Card image principale */}
             <div className="relative overflow-hidden rounded-3xl border border-[#D5E2F4] bg-white shadow-[0_32px_80px_-20px_rgba(26,59,156,0.22)]">
-              <div className="relative aspect-[4/3] w-full bg-[#EEF3FC]">
+              <div className="relative aspect-square w-full bg-[#EEF3FC]">
                 <Image
                   src={exteriorImage}
                   alt="Facade de la Clinique Maimouna Touré"
