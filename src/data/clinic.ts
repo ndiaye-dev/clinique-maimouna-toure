@@ -17,8 +17,8 @@ export const clinic: ClinicProfile = {
   heroBackgroundImage: "clinic-hero-family.png",
   clinicExteriorImage: "clinique-maimouna-toure-facade.png",
   openingHours: {
-    weekdays: "Lun–Sam : 8h–20h",
-    sunday: "Dimanche : Urgences",
+    weekdays: "Tous les jours : 8h–20h",
+    sunday: "Ouvert 7j/7",
   },
 
 
