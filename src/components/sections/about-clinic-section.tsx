@@ -63,8 +63,8 @@ export function AboutClinicSection() {
         <div className="absolute inset-0 opacity-[0.014] [background-image:linear-gradient(#1A3B9C_1px,transparent_1px),linear-gradient(90deg,#1A3B9C_1px,transparent_1px)] [background-size:56px_56px]" />
       </div>
 
-      <Container>
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+      <Container className="lg:px-16 xl:px-20">
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
 
           {/* ══ COLONNE GAUCHE — image + floating stats ══ */}
           <motion.div
