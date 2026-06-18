@@ -19,6 +19,7 @@ import heroFamilyImage from "@/assets/images/clinic-hero-family.png";
 import servicesBannerImg from "@/assets/images/banners/services-banner.jpg";
 import facadeImg from "@/assets/images/gallery/facade.jpg";
 import infirmierPatientImg from "@/assets/images/slider/infirmiere-patient.jpg";
+import receptionImg from "@/assets/images/gallery/reception.jpg";
 import { Container } from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
 import { clinic } from "@/data/clinic";
@@ -38,6 +39,12 @@ const slides = [
     alt: "Médecin spécialiste en consultation",
     caption: "Expertise médicale confirmée",
     position: "50% 40%",
+  },
+  {
+    src: receptionImg,
+    alt: "Accueil de la Clinique Maïmouna Touré",
+    caption: "Un accueil chaleureux",
+    position: "50% 35%",
   },
   {
     src: infirmierPatientImg,
